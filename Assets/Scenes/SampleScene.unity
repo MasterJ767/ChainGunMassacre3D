@@ -402,3 +402,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05267eb93a751624d8aa45efd9513ff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 963194228}
+  material: {fileID: 2100000, guid: 2e2df735ee55d0940a0b349a52ffc9b0, type: 2}
+  biomes:
+  - biomeName: Lower Grassland
+    blankFeatureWeight: 0
+    features: []
+    enemies: []
+    bossEnemies: []
+    maxExtent: 60
+  - biomeName: Upper Grassland
+    blankFeatureWeight: 0
+    features: []
+    enemies: []
+    bossEnemies: []
+    maxExtent: 100
+  - biomeName: Lower Roughland
+    blankFeatureWeight: 0
+    features: []
+    enemies: []
+    bossEnemies: []
+    maxExtent: 140
+  - biomeName: Upper Roughland
+    blankFeatureWeight: 0
+    features: []
+    enemies: []
+    bossEnemies: []
+    maxExtent: 180
+  - biomeName: Tundra
+    blankFeatureWeight: 0
+    features: []
+    enemies: []
+    bossEnemies: []
+    maxExtent: 220
+  - biomeName: Voidland
+    blankFeatureWeight: 0
+    features: []
+    enemies: []
+    bossEnemies: []
+    maxExtent: 260
+  - biomeName: Lavaland
+    blankFeatureWeight: 0
+    features: []
+    enemies: []
+    bossEnemies: []
+    maxExtent: 300

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,10 +8,34 @@ namespace World
     public class BiomeGeneration : MonoBehaviour
     {
         public Transform player;
-        
+
+        public GameObject chunkPrefab;
         public Material material;
 
         public Biome[] biomes;
+
+        private List<Chunk> activeChunks;
+        private List<Chunk> unactiveChunks;
+
+        public void Start()
+        {
+            Initialise();
+        }
+
+        private void Initialise()
+        {
+            for (int x = -Config.ViewDistance; x <= Config.ViewDistance; x++)
+            {
+                for (int z = -Config.ViewDistance; z <= Config.ViewDistance; z++)
+                {
+                    int scaledX = x * Config.ChunkWidth;
+                    int scaledZ = z * Config.ChunkWidth;
+
+                    GameObject chunk = Instantiate(chunkPrefab, new Vector3(scaledX, 0, scaledZ), Quaternion.identity, transform);
+                    chunk.GetComponent<Chunk>().Initialise(this, scaledX, scaledZ, material);
+                }
+            }
+        }
 
         public int GetBiomeId(int x, int z)
         {
@@ -62,7 +87,7 @@ namespace World
 [Serializable]
 public struct Biome
 {
-    public string name;
+    public string biomeName;
     public float blankFeatureWeight;
     public WeightedSpawn[] features;
     public WeightedSpawn[] enemies;

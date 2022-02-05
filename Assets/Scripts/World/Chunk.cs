@@ -31,7 +31,7 @@ namespace World
             {
                 for (int z = 0; z < Config.ChunkWidth; z++)
                 {
-                    world.GetBiomeId(x + position.x, z + position.y);
+                    biomeMap[x, z] = world.GetBiomeId(x + position.x, z + position.y);
                 }
             }
         }
