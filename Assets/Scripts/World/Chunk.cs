@@ -12,11 +12,11 @@ namespace World
         public MeshRenderer meshRenderer;
         public BoxCollider boxCollider;
 
-        [NonSerialized]
-        public bool IsRendered = false;
+        [HideInInspector]
+        public bool isRendered = false;
         
         private BiomeGeneration world;
-        [NonSerialized]
+        [HideInInspector]
         public Vector2Int position;
         private Material material;
         private int[,] biomeMap = new int[Config.ChunkWidth, Config.ChunkWidth];
@@ -102,7 +102,7 @@ namespace World
 
             meshFilter.sharedMesh = mesh;
 
-            IsRendered = true;
+            isRendered = true;
         }
     }
 }

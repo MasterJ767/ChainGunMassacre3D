@@ -122,7 +122,7 @@ namespace World
                     int scaledZ = z * Config.ChunkWidth;
                     
                     ChunkData chunkData = chunks[new Vector2Int(scaledX, scaledZ)];
-                    if (!chunkData.chunk.IsRendered)
+                    if (!chunkData.chunk.isRendered)
                     {
                         chunkData.chunk.Render();
                     }
