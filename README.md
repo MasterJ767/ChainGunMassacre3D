@@ -34,3 +34,6 @@ The following assets were taken from the Unity Store and used in my project:
 - grass_corrupted_down
 - grass_darked_down
 - grass_lighted_down
+
+#### [Space Robot Kyle](https://assetstore.unity.com/packages/3d/characters/robots/space-robot-kyle-4696)
+- Robot Kyle
