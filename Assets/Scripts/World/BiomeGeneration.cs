@@ -59,7 +59,7 @@ namespace World
 
         private void SpawnPlayer()
         {
-            player.position = new Vector3(0, 10, 0);
+            player.position = new Vector3(0, 3, 0);
             currentChunk = chunks[new Vector2Int(0, 0)].chunk;
             lastChunk = currentChunk;
         }
