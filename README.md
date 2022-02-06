@@ -12,7 +12,7 @@ Built With
 ----------
 
 - Unity 2021.2.8f1
-- Rider 2021.2
+- Rider 2021.3.3
 
 License
 -------
