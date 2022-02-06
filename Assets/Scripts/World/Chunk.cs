@@ -10,9 +10,14 @@ namespace World
     {
         public MeshFilter meshFilter;
         public MeshRenderer meshRenderer;
+        public BoxCollider boxCollider;
+
+        [NonSerialized]
+        public bool IsRendered = false;
         
         private BiomeGeneration world;
-        private Vector2Int position;
+        [NonSerialized]
+        public Vector2Int position;
         private Material material;
         private int[,] biomeMap = new int[Config.ChunkWidth, Config.ChunkWidth];
 
@@ -23,6 +28,9 @@ namespace World
             material = Material;
 
             Populate();
+
+            boxCollider.center = new Vector3(Config.ChunkWidth / 2f, 0, Config.ChunkWidth / 2f);
+            boxCollider.size = new Vector3(Config.ChunkWidth, 0, Config.ChunkWidth);
         }
 
         public void Populate()
@@ -93,6 +101,8 @@ namespace World
             mesh.SetUVs(0, uvs.ToArray());
 
             meshFilter.sharedMesh = mesh;
+
+            IsRendered = true;
         }
     }
 }
