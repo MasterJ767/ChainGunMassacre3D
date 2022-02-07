@@ -16,6 +16,7 @@ namespace Resource
 
         private float timeSinceUse;
 
+        public bool hasStaminaBar;
         public Slider slider;
         public Image staminaFill;
         public Gradient staminaColour;
@@ -36,15 +37,21 @@ namespace Resource
 
         private void SetStaminaMax()
         {
-            slider.maxValue = maxStamina;
+            if (hasStaminaBar)
+            {
+                slider.maxValue = maxStamina;
+            }
             currentStamina = maxStamina;
             SetStaminaSlider();
         }
 
         private void SetStaminaSlider()
         {
-            slider.value = currentStamina;
-            staminaFill.color = staminaColour.Evaluate(slider.normalizedValue);
+            if (hasStaminaBar)
+            {
+                slider.value = currentStamina;
+                staminaFill.color = staminaColour.Evaluate(slider.normalizedValue);
+            }
         }
 
         public bool Expend(float value)

@@ -15,6 +15,7 @@ namespace Resource
 
         private float timeSinceHit;
 
+        public bool hasHealthBar;
         public Slider slider;
         public Image healthFill;
         public Gradient healthColour;
@@ -37,15 +38,21 @@ namespace Resource
 
         private void SetHealthMax()
         {
-            slider.maxValue = maxHealth;
+            if (hasHealthBar)
+            {
+                slider.maxValue = maxHealth;
+            }
             currentHealth = maxHealth;
             SetHealthSlider();
         }
 
         private void SetHealthSlider()
         {
-            slider.value = currentHealth;
-            healthFill.color = healthColour.Evaluate(slider.normalizedValue);
+            if (hasHealthBar)
+            {
+                slider.value = currentHealth;
+                healthFill.color = healthColour.Evaluate(slider.normalizedValue);
+            }
         }
 
         public void Damage(float value)
