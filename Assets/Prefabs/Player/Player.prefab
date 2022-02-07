@@ -103,6 +103,7 @@ MonoBehaviour:
   currentHealth: 0
   regenPerSecond: 1
   regenDelay: 5
+  hasHealthBar: 1
   slider: {fileID: 0}
   healthFill: {fileID: 0}
   healthColour:
@@ -150,6 +151,7 @@ MonoBehaviour:
   currentStamina: 0
   regenPerSecond: 1
   regenDelay: 5
+  hasStaminaBar: 1
   slider: {fileID: 0}
   staminaFill: {fileID: 0}
   staminaColour:

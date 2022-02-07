@@ -595,6 +595,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 202146520}
     m_Modifications:
+    - target: {fileID: 567110907173870151, guid: 5bbf3f9e29d80524a9d09525d940d714, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d9f9192c9c1951a478d3a26fbb38b276, type: 3}
     - target: {fileID: 6543710947549771866, guid: 5bbf3f9e29d80524a9d09525d940d714, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -890,6 +894,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 202146520}
     m_Modifications:
+    - target: {fileID: 567110907173870151, guid: 5bbf3f9e29d80524a9d09525d940d714, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 45107beb4df701648b5d88dd3bbd88fb, type: 3}
     - target: {fileID: 6543710947549771865, guid: 5bbf3f9e29d80524a9d09525d940d714, type: 3}
       propertyPath: m_Value
       value: 1
