@@ -26,7 +26,7 @@ namespace Player
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.fixedDeltaTime;
 
             XRotation -= mouseY;
-            XRotation = Mathf.Clamp(XRotation, -90f, 90f);
+            XRotation = Mathf.Clamp(XRotation, -50f, 90f);
             
             transform.localRotation = Quaternion.Euler(XRotation, 0f, 0f);
             playerHead.localRotation = Quaternion.Euler(XRotation, 0f, 0f);
