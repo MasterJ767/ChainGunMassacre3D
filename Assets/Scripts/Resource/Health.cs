@@ -29,7 +29,7 @@ namespace Resource
         private void Update()
         {
             timeSinceHit += Time.deltaTime;
-            if (timeSinceHit > regenDelay)
+            if (currentHealth < maxHealth && timeSinceHit > regenDelay)
             {
                 Heal(regenPerSecond * Time.deltaTime);
             }
@@ -48,7 +48,7 @@ namespace Resource
             healthFill.color = healthColour.Evaluate(slider.normalizedValue);
         }
 
-        public void TakeDamage(float value)
+        public void Damage(float value)
         {
             timeSinceHit = 0;
             currentHealth = Mathf.Max(0, currentHealth - value);
@@ -65,7 +65,7 @@ namespace Resource
             SetHealthSlider();
         }
 
-        public void Death()
+        private void Death()
         {
             isDead = true;
         }
