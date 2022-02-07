@@ -37,3 +37,6 @@ The following assets were taken from the Unity Store and used in my project:
 
 #### [Space Robot Kyle](https://assetstore.unity.com/packages/3d/characters/robots/space-robot-kyle-4696)
 - Robot Kyle
+
+#### [Level 1 Monster Pack](https://assetstore.unity.com/packages/3d/characters/creatures/level-1-monster-pack-77703)
+- Slime_Green prefab
