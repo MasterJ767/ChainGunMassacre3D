@@ -7,14 +7,14 @@ namespace Enemy
     [RequireComponent(typeof(Rigidbody))]
     public class Movement : MonoBehaviour
     {
-        public float baseSpeed = 6f;
+        public float baseSpeed = 3f;
         public float multiplier = 1.05f;
         [HideInInspector] 
         public int speedLevel = 0;
         
         public Rigidbody rb;
 
-        public float viewDistance;
+        public float viewDistance = 20f;
         public Transform target;
         [HideInInspector] 
         public float distanceToTarget;
@@ -49,6 +49,8 @@ namespace Enemy
             }
 
             Vector3 step = (target.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(step.x, 0, step.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
             rb.velocity += (step * (speed * Mathf.Clamp01(speed - rb.velocity.magnitude)));
         }
 
