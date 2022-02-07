@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Health
 {
-    public class HealthController : MonoBehaviour
+    public class Controller : MonoBehaviour
     {
         public float maxHealth;
         [HideInInspector] 

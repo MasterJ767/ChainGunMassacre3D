@@ -5,7 +5,7 @@ using Random = UnityEngine.Random;
 
 namespace World
 {
-    public class BiomeGeneration : MonoBehaviour
+    public class Generation : MonoBehaviour
     {
         public Transform player;
         private Chunk currentChunk;

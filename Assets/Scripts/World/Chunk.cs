@@ -15,13 +15,13 @@ namespace World
         [HideInInspector]
         public bool isRendered = false;
         
-        private BiomeGeneration world;
+        private Generation world;
         [HideInInspector]
         public Vector2Int position;
         private Material material;
         private int[,] biomeMap = new int[Config.ChunkWidth, Config.ChunkWidth];
 
-        public void Initialise(BiomeGeneration World, int X, int Z, Material Material)
+        public void Initialise(Generation World, int X, int Z, Material Material)
         {
             world = World;
             position = new Vector2Int(X, Z);
