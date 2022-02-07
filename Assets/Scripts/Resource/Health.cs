@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Health
+namespace Resource
 {
-    public class Controller : MonoBehaviour
+    public class Health : MonoBehaviour
     {
         public float maxHealth;
         [HideInInspector] 
