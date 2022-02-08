@@ -65,7 +65,7 @@ namespace Player
 
         private void MovePlayer()
         {
-            if (isGrounded && Input.GetButton("Sprint"))
+            if (isGrounded && Input.GetButton("Sprint") && movement.magnitude != 0)
             {
                 Resource.Stamina stamina = gameObject.GetComponent<Resource.Stamina>();
                 if (stamina.Expend(0.5f))
