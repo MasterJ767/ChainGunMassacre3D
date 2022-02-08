@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ namespace Resource
         public bool hasStaminaBar;
         public Slider slider;
         public Image staminaFill;
+        public TextMeshProUGUI staminaText;
         public Gradient staminaColour;
 
         private void Start()
@@ -50,6 +52,7 @@ namespace Resource
             if (hasStaminaBar)
             {
                 slider.value = currentStamina;
+                staminaText.text = Mathf.Floor(currentStamina) + " / " + maxStamina;
                 staminaFill.color = staminaColour.Evaluate(slider.normalizedValue);
             }
         }

@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,7 @@ namespace Resource
         public bool hasHealthBar;
         public Slider slider;
         public Image healthFill;
+        public TextMeshProUGUI healthText;
         public Gradient healthColour;
 
         private bool isDead = false;
@@ -51,6 +53,7 @@ namespace Resource
             if (hasHealthBar)
             {
                 slider.value = currentHealth;
+                healthText.text = Mathf.Floor(currentHealth) + " / " + maxHealth;
                 healthFill.color = healthColour.Evaluate(slider.normalizedValue);
             }
         }
