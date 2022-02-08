@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,10 @@ namespace Resource
         public Image healthFill;
         public TextMeshProUGUI healthText;
         public Gradient healthColour;
+
+        public bool hasDamageIndicator;
+        public Canvas damageIndicator;
+        public TextMeshProUGUI damageIndicatorText;
 
         private bool isDead = false;
 
@@ -61,6 +66,10 @@ namespace Resource
         public void Damage(float value)
         {
             timeSinceHit = 0;
+            if (hasDamageIndicator)
+            {
+                StartCoroutine(IndicateDamage(value));
+            }
             currentHealth = Mathf.Max(0, currentHealth - value);
             SetHealthSlider();
             if (currentHealth <= 0 && !isDead)
@@ -78,6 +87,15 @@ namespace Resource
         private void Death()
         {
             isDead = true;
+        }
+
+        private IEnumerator IndicateDamage(float damage)
+        {
+            damageIndicatorText.text = damage.ToString("0.0");
+            damageIndicatorText.color = new Color(1, 1, 1, 0.5f);
+            damageIndicator.gameObject.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            damageIndicator.gameObject.SetActive(false);
         }
     }
 }
