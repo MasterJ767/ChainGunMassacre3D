@@ -85,6 +85,9 @@ MonoBehaviour:
   speedLevel: 0
   jumpHeight: 3
   groundCheck: {fileID: 1804479463194219198}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
   groundDistance: 0.4
   rb: {fileID: 679055252920070827}
 --- !u!114 &3640756185916612201

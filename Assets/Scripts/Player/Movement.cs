@@ -13,6 +13,7 @@ namespace Player
 
         public float jumpHeight = 3f;
         public Transform groundCheck;
+        public LayerMask groundLayer;
         public float groundDistance = 0.4f;
         private bool isGrounded;
         
@@ -40,7 +41,7 @@ namespace Player
         private void GroundedCheck()
         {
             Vector3 groundCheckPosition = groundCheck.position;
-            isGrounded = Physics.CheckCapsule(groundCheckPosition, groundCheckPosition - new Vector3(0, groundDistance, 0), 0.4f);
+            isGrounded = Physics.CheckCapsule(groundCheckPosition, groundCheckPosition - new Vector3(0, groundDistance, 0), 0.4f, groundLayer);
         }
 
         private void GetMovementInputs()
@@ -53,14 +54,18 @@ namespace Player
         {
             if (isGrounded && Input.GetButtonDown("Jump"))
             {
-                float f = Mathf.Sqrt(-jumpHeight * Physics.gravity.y);
-                rb.AddForce(Vector3.up * f, ForceMode.Impulse);
+                Resource.Stamina stamina = gameObject.GetComponent<Resource.Stamina>();
+                if (stamina.Expend(10f))
+                {
+                    float f = Mathf.Sqrt(-jumpHeight * Physics.gravity.y);
+                    rb.AddForce(Vector3.up * f, ForceMode.Impulse);
+                }
             }
         }
 
         private void MovePlayer()
         {
-            if (Input.GetButton("Sprint"))
+            if (isGrounded && Input.GetButton("Sprint"))
             {
                 Resource.Stamina stamina = gameObject.GetComponent<Resource.Stamina>();
                 if (stamina.Expend(0.5f))
