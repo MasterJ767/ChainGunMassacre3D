@@ -51,6 +51,9 @@ namespace Player
         private void Start()
         {
             SetAmmoText();
+            
+            elementalParameters = new NoneParameters(new Color(1, 1, 0, 0f));
+            elementalEffect = ElementalEffect.NONE;
         }
 
         private void FixedUpdate()
@@ -119,13 +122,13 @@ namespace Player
                     bulletGameObject.GetComponent<Rigidbody>().velocity = bulletDirection * shotSpeed;
                     
                     Projectile bullet = bulletGameObject.GetComponent<Projectile>();
-                    if (Random.Range(0f, 1f) <= (1f / elementalFrequency))
+                    if (elementalEffect != ElementalEffect.NONE && Random.Range(0f, 1f) <= (1f / elementalFrequency))
                     {
                         bullet.Initialise(playerAttackController.GetCurrentWeapon(), elementalParameters, elementalEffect, damage, knockback, pierceCount);
                     }
                     else
                     {
-                        NoneParameters noParameters = new NoneParameters(new Color(1, 1, 0, 0.5f));
+                        NoneParameters noParameters = new NoneParameters(new Color(1, 1, 0, 0f));
                         bullet.Initialise(playerAttackController.GetCurrentWeapon(), noParameters, ElementalEffect.NONE, damage, knockback, pierceCount);
                     }
                     

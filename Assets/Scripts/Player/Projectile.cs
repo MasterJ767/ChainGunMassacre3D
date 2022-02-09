@@ -7,6 +7,8 @@ namespace Player
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
     {
+        public GameObject projectileCoating;
+        
         private Weapon weapon;
 
         private ElementalParameters elementalParameters;
@@ -32,6 +34,8 @@ namespace Player
             damage = Damage;
             knockback = Knockback;
             pierceCount = PierceCount;
+
+            projectileCoating.GetComponent<Material>().color = elementalParameters.bulletColour;
         }
 
         private void OnTriggerEnter(Collider other)
