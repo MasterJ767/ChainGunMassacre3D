@@ -40,3 +40,6 @@ The following assets were taken from the Unity Store and used in my project:
 
 #### [Level 1 Monster Pack](https://assetstore.unity.com/packages/3d/characters/creatures/level-1-monster-pack-77703)
 - Slime_Green prefab
+
+#### [POLYGON - Weapons](https://assetstore.unity.com/packages/3d/props/guns/polygon-weapons-157724)
+- Knife
