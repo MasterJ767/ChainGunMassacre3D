@@ -35,7 +35,7 @@ namespace Player
             knockback = Knockback;
             pierceCount = PierceCount;
 
-            projectileCoating.GetComponent<Material>().color = elementalParameters.bulletColour;
+            projectileCoating.GetComponent<MeshRenderer>().material.color = elementalParameters.bulletColour;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -48,7 +48,7 @@ namespace Player
                 enemyRigidbody.AddForce(rb.velocity.normalized * knockback, ForceMode.Impulse);
 
                 Resource.Health enemyHealth = other.gameObject.GetComponent<Resource.Health>();
-                enemyHealth.Damage(damage);
+                enemyHealth.Damage(damage, elementalParameters.bulletColour);
 
                 switch (elementalEffect)
                 {

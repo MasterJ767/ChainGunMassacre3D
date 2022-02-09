@@ -44,40 +44,53 @@ namespace Player
         [Header("Player")]
         public Attack playerAttackController;
         public Camera playerCameraController;
-        
+
         [HideInInspector]
         public float fireCooldown = 0f;
 
         private void Start()
         {
-            SetAmmoText();
+            Refill(maxAmmo);
             
             elementalParameters = new NoneParameters(new Color(1, 1, 0, 0f));
             elementalEffect = ElementalEffect.NONE;
-        }
-
-        private void FixedUpdate()
-        {
-            transform.localRotation = playerCameraController.transform.localRotation;
         }
 
         private void Update()
         {
             fireCooldown -= Time.deltaTime;
             
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown("Fire1") && fireCooldown <= 0f)
             {
-                if (fireCooldown <= 0f && (currentAmmo > 0 || isMelee))
+                if (Fire(1))
                 {
                     StartCoroutine(Shoot());
-                    fireCooldown -= autoDelay;
+                    fireCooldown = autoDelay;
                 }
             }
         }
 
-        private void SetAmmoText()
+        public void SetAmmoText()
         {
             ammoText.text = currentAmmo.ToString("0");
+        }
+
+        public bool Fire(int value)
+        {
+            if (isMelee)
+            {
+                return true;
+            }
+            
+            float ammoDifference = currentAmmo - value;
+            if (ammoDifference < 0)
+            {
+                return false;
+            }
+            
+            currentAmmo = Mathf.Max(0, currentAmmo - value);
+            SetAmmoText();
+            return true;
         }
 
         public void Refill(int value)
@@ -88,38 +101,41 @@ namespace Player
 
         private IEnumerator Shoot()
         {
-            if (!isMelee)
+            Transform cameraTransform = playerCameraController.transform;
+            Vector3 forward = cameraTransform.forward;
+            Vector3 startPosition = attackPoint.position;
+            
+            for (int i = 0; i < burstCount; i++)
             {
-                currentAmmo--;
-            }
+                float spreadSeparation = (2 * Mathf.PI / spreadCount);
+                float spreadAngleRad = spreadAngle * Mathf.Deg2Rad;
+                Vector3 targetCentre = attackPoint.position + (forward * range);
 
-            for (int i = 0; i <= burstCount; i++)
-            {
-                Quaternion projectileRotation = Quaternion.AngleAxis(spreadAngle, Vector3.forward);
-
-                Vector3 spreadStart = Quaternion.Euler(0, 0, spreadCount * spreadAngle / 2f) * Vector3.forward;
-
-                for (int j = 0; j <= spreadCount; j++)
+                for (int j = 0; j < spreadCount; j++)
                 {
-                    GameObject bulletGameObject = Instantiate(projectilePrefab, attackPoint.position, projectileRotation, transform);
+                    GameObject bulletGameObject = Instantiate(projectilePrefab, startPosition, cameraTransform.rotation, transform);
                     Destroy(bulletGameObject, range / shotSpeed);
-
-                    Vector3 bulletDirection;
+                    
+                    Vector3 spreadDirection = new Vector3(Mathf.Cos(j * spreadSeparation), Mathf.Sin(j * spreadSeparation), 0);
+                    float spreadDistance = range * Mathf.Tan(spreadAngleRad);
+                    Vector3 impactLocation;
 
                     if (spreadType == SpreadType.RANDOM)
                     {
-                        bulletDirection = Quaternion.Euler(0, 0, Random.Range(spreadAngle, -spreadAngle)) * Vector3.forward;
+                        impactLocation = targetCentre + (spreadDirection.normalized * Random.Range(spreadDistance, spreadDistance / 2));
                     }
                     else if (spreadType == SpreadType.FIXED)
                     {
-                        bulletDirection = Quaternion.Euler(0, 0, -spreadAngle * j) * spreadStart;
+                        impactLocation = targetCentre + (spreadDirection.normalized * spreadDistance);
                     }
                     else
                     {
-                        bulletDirection = Vector3.zero;
+                        impactLocation = targetCentre + (forward * range);
                     }
+                    
+                    Vector3 bulletDirection = (impactLocation - startPosition).normalized;
 
-                    bulletGameObject.GetComponent<Rigidbody>().velocity = bulletDirection * shotSpeed;
+                    bulletGameObject.GetComponent<Rigidbody>().velocity = (startPosition + bulletDirection) * shotSpeed;
                     
                     Projectile bullet = bulletGameObject.GetComponent<Projectile>();
                     if (elementalEffect != ElementalEffect.NONE && Random.Range(0f, 1f) <= (1f / elementalFrequency))

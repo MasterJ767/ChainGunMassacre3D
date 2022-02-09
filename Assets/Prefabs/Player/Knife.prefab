@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Knife
   attackPoint: {fileID: 3563169119575364916}
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 9112240557975970196, guid: 965c4e166596fd143a55934c0069f92d, type: 3}
   isMelee: 1
   damage: 2
   maxAmmo: 0
@@ -69,7 +69,6 @@ MonoBehaviour:
   level: 0
   ammoText: {fileID: 0}
   playerAttackController: {fileID: 0}
-  playerCameraController: {fileID: 0}
   fireCooldown: 0
 --- !u!1 &3563169119575364917
 GameObject:

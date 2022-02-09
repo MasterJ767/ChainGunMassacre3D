@@ -66,16 +66,21 @@ namespace Resource
         public void Damage(float value)
         {
             timeSinceHit = 0;
-            if (hasDamageIndicator)
-            {
-                StartCoroutine(IndicateDamage(value));
-            }
             currentHealth = Mathf.Max(0, currentHealth - value);
             SetHealthSlider();
             if (currentHealth <= 0 && !isDead)
             {
                 Death();
             }
+        }
+        
+        public void Damage(float value, Color colour)
+        {
+            if (hasDamageIndicator)
+            {
+                StartCoroutine(IndicateDamage(value, colour));
+            }
+            Damage(value);
         }
 
         public void Heal(float value)
@@ -89,10 +94,10 @@ namespace Resource
             isDead = true;
         }
 
-        private IEnumerator IndicateDamage(float damage)
+        private IEnumerator IndicateDamage(float damage, Color colour)
         {
             damageIndicatorText.text = damage.ToString("0.0");
-            damageIndicatorText.color = new Color(1, 1, 1, 0.5f);
+            damageIndicatorText.color = colour;
             damageIndicator.gameObject.SetActive(true);
             yield return new WaitForSeconds(1f);
             damageIndicator.gameObject.SetActive(false);

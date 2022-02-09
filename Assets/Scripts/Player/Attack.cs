@@ -41,7 +41,9 @@ namespace Player
             weapons[currentWeapon].gameObject.SetActive(false);
             currentWeapon = Modulo((currentWeapon + amount), weapons.Length);
             weapons[currentWeapon].gameObject.SetActive(true);
-            weapons[currentWeapon].GetComponent<Weapon>().fireCooldown = 0.1f;
+            Weapon weapon = weapons[currentWeapon].GetComponent<Weapon>();
+            weapon.fireCooldown = 0.1f;
+            weapon.SetAmmoText();
         }
 
         private int Modulo(int n, int m)
