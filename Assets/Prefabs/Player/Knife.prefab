@@ -56,12 +56,12 @@ MonoBehaviour:
   shotSpeed: 5
   range: 0.35
   knockback: 12
-  burstCount: 0
+  burstCount: 1
   burstDelay: 0
   pierceCount: 0
   autoDelay: 0.5
   spreadType: 0
-  spreadCount: 0
+  spreadCount: 1
   spreadAngle: 0
   elementalEffect: 0
   elementalFrequency: 10
@@ -69,6 +69,7 @@ MonoBehaviour:
   level: 0
   ammoText: {fileID: 0}
   playerAttackController: {fileID: 0}
+  playerCameraController: {fileID: 0}
   fireCooldown: 0
 --- !u!1 &3563169119575364917
 GameObject:

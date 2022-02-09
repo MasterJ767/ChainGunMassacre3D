@@ -49,7 +49,8 @@ namespace Enemy
             }
 
             Vector3 step = (target.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(step.x, 0, step.z));
+            step.y = 0;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(step.x, step.y, step.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
             rb.velocity += (step * (speed * Mathf.Clamp01(speed - rb.velocity.magnitude)));
         }

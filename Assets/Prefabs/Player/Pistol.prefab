@@ -87,12 +87,12 @@ MonoBehaviour:
   shotSpeed: 10
   range: 6
   knockback: 0
-  burstCount: 0
+  burstCount: 1
   burstDelay: 0
   pierceCount: 0
   autoDelay: 0.75
-  spreadType: 0
-  spreadCount: 0
+  spreadType: 2
+  spreadCount: 1
   spreadAngle: 0
   elementalEffect: 0
   elementalFrequency: 10

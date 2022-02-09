@@ -14,6 +14,7 @@ namespace Player
         public float jumpHeight = 3f;
         public Transform groundCheck;
         public LayerMask groundLayer;
+        public LayerMask enemyLayer;
         public float groundDistance = 0.4f;
         private bool isGrounded;
         
@@ -41,7 +42,8 @@ namespace Player
         private void GroundedCheck()
         {
             Vector3 groundCheckPosition = groundCheck.position;
-            isGrounded = Physics.CheckCapsule(groundCheckPosition, groundCheckPosition - new Vector3(0, groundDistance, 0), 0.4f, groundLayer);
+            isGrounded = Physics.CheckCapsule(groundCheckPosition, groundCheckPosition - new Vector3(0, groundDistance, 0), 0.4f, groundLayer) 
+                         || Physics.CheckCapsule(groundCheckPosition, groundCheckPosition - new Vector3(0, groundDistance, 0), 0.4f, enemyLayer);
         }
 
         private void GetMovementInputs()

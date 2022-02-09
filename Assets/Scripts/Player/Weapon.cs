@@ -60,7 +60,7 @@ namespace Player
         {
             fireCooldown -= Time.deltaTime;
             
-            if (Input.GetButtonDown("Fire1") && fireCooldown <= 0f)
+            if (Input.GetButton("Fire1") && fireCooldown <= 0f)
             {
                 if (Fire(1))
                 {
@@ -104,38 +104,39 @@ namespace Player
             Transform cameraTransform = playerCameraController.transform;
             Vector3 forward = cameraTransform.forward;
             Vector3 startPosition = attackPoint.position;
-            
+
             for (int i = 0; i < burstCount; i++)
             {
                 float spreadSeparation = (2 * Mathf.PI / spreadCount);
                 float spreadAngleRad = spreadAngle * Mathf.Deg2Rad;
                 Vector3 targetCentre = attackPoint.position + (forward * range);
+                float offset = Random.Range(0f, 2 * Mathf.PI);
 
                 for (int j = 0; j < spreadCount; j++)
                 {
                     GameObject bulletGameObject = Instantiate(projectilePrefab, startPosition, cameraTransform.rotation, transform);
-                    Destroy(bulletGameObject, range / shotSpeed);
-                    
-                    Vector3 spreadDirection = new Vector3(Mathf.Cos(j * spreadSeparation), Mathf.Sin(j * spreadSeparation), 0);
+
+                    Vector3 spreadDirection = (Mathf.Cos((j * spreadSeparation) + offset) * cameraTransform.right) + (Mathf.Sin((j * spreadSeparation) + offset) * cameraTransform.up);
                     float spreadDistance = range * Mathf.Tan(spreadAngleRad);
                     Vector3 impactLocation;
+                    Vector3 bulletDirection;
 
                     if (spreadType == SpreadType.RANDOM)
                     {
                         impactLocation = targetCentre + (spreadDirection.normalized * Random.Range(spreadDistance, spreadDistance / 2));
+                        bulletDirection = (impactLocation - startPosition).normalized;
                     }
                     else if (spreadType == SpreadType.FIXED)
                     {
                         impactLocation = targetCentre + (spreadDirection.normalized * spreadDistance);
+                        bulletDirection = (impactLocation - startPosition).normalized;
                     }
                     else
                     {
-                        impactLocation = targetCentre + (forward * range);
+                        bulletDirection = forward;
                     }
-                    
-                    Vector3 bulletDirection = (impactLocation - startPosition).normalized;
 
-                    bulletGameObject.GetComponent<Rigidbody>().velocity = (startPosition + bulletDirection) * shotSpeed;
+                    bulletGameObject.GetComponent<Rigidbody>().velocity = bulletDirection * shotSpeed;
                     
                     Projectile bullet = bulletGameObject.GetComponent<Projectile>();
                     if (elementalEffect != ElementalEffect.NONE && Random.Range(0f, 1f) <= (1f / elementalFrequency))
@@ -148,6 +149,7 @@ namespace Player
                         bullet.Initialise(playerAttackController.GetCurrentWeapon(), noParameters, ElementalEffect.NONE, damage, knockback, pierceCount);
                     }
                     
+                    Destroy(bulletGameObject, range / shotSpeed);
                 }
                 
                 yield return new WaitForSecondsRealtime(burstDelay);
