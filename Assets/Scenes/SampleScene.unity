@@ -1844,6 +1844,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2029379868125426639, guid: 5eaa4d622db58aa4c92e2b01e0df56e2, type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 978276776}
     - target: {fileID: 3241344754962851852, guid: 5eaa4d622db58aa4c92e2b01e0df56e2, type: 3}
       propertyPath: slider
       value: 
