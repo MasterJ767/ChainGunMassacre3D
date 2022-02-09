@@ -41,7 +41,8 @@ namespace Player
         [Header("UI")] 
         public TextMeshProUGUI ammoText;
         
-        private float fireCooldown = 0f;
+        [HideInInspector]
+        public float fireCooldown = 0f;
 
         private void Start()
         {
