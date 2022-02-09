@@ -91,7 +91,7 @@ MonoBehaviour:
   burstDelay: 0
   pierceCount: 0
   autoDelay: 0.75
-  spreadType: 2
+  spreadType: 0
   spreadCount: 1
   spreadAngle: 0
   elementalEffect: 0
