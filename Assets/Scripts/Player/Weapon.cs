@@ -64,7 +64,7 @@ namespace Player
             
             if (Input.GetButtonDown("Fire1"))
             {
-                if (fireCooldown <= 0f && currentAmmo > 0)
+                if (fireCooldown <= 0f && (currentAmmo > 0 || isMelee))
                 {
                     StartCoroutine(Shoot());
                     fireCooldown -= autoDelay;
@@ -85,8 +85,11 @@ namespace Player
 
         private IEnumerator Shoot()
         {
-            currentAmmo--;
-            
+            if (!isMelee)
+            {
+                currentAmmo--;
+            }
+
             for (int i = 0; i <= burstCount; i++)
             {
                 Quaternion projectileRotation = Quaternion.AngleAxis(spreadAngle, Vector3.forward);
