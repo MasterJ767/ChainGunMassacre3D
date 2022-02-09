@@ -83,6 +83,10 @@ namespace Player
                     pierceCount--;
                 }
             }
+            else if (other.gameObject.CompareTag("Ground"))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
