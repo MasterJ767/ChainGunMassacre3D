@@ -40,6 +40,10 @@ namespace Player
 
         [Header("UI")] 
         public TextMeshProUGUI ammoText;
+
+        [Header("Player")]
+        public Attack playerAttackController;
+        public Camera playerCameraController;
         
         [HideInInspector]
         public float fireCooldown = 0f;
@@ -47,6 +51,11 @@ namespace Player
         private void Start()
         {
             SetAmmoText();
+        }
+
+        private void FixedUpdate()
+        {
+            transform.localRotation = playerCameraController.transform.localRotation;
         }
 
         private void Update()
@@ -109,12 +118,12 @@ namespace Player
                     Projectile bullet = bulletGameObject.GetComponent<Projectile>();
                     if (Random.Range(0f, 1f) <= (1f / elementalFrequency))
                     {
-                        bullet.Initialise(elementalParameters, elementalEffect, damage, knockback, pierceCount);
+                        bullet.Initialise(playerAttackController.GetCurrentWeapon(), elementalParameters, elementalEffect, damage, knockback, pierceCount);
                     }
                     else
                     {
                         NoneParameters noParameters = new NoneParameters(new Color(1, 1, 0, 0.5f));
-                        bullet.Initialise(noParameters, ElementalEffect.NONE, damage, knockback, pierceCount);
+                        bullet.Initialise(playerAttackController.GetCurrentWeapon(), noParameters, ElementalEffect.NONE, damage, knockback, pierceCount);
                     }
                     
                 }

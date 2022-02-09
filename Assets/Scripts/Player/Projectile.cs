@@ -7,7 +7,7 @@ namespace Player
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
     {
-        public Weapon weapon;
+        private Weapon weapon;
 
         private ElementalParameters elementalParameters;
         private ElementalEffect elementalEffect;
@@ -23,8 +23,10 @@ namespace Player
             rb = GetComponent<Rigidbody>();
         }
 
-        public void Initialise(ElementalParameters ElementalParameters, ElementalEffect ElementalEffect, float Damage, float Knockback, int PierceCount)
+        public void Initialise(Weapon Weapon, ElementalParameters ElementalParameters, ElementalEffect ElementalEffect, float Damage, float Knockback, int PierceCount)
         {
+            weapon = Weapon;
+            
             elementalParameters = ElementalParameters;
             elementalEffect = ElementalEffect;
             damage = Damage;
