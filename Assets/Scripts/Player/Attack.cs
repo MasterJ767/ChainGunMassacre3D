@@ -30,6 +30,11 @@ namespace Player
             }
         }
 
+        public Weapon GetCurrentWeapon()
+        {
+            return weapons[currentWeapon];
+        }
+
         private void ChangeGun(int amount)
         {
             StartCoroutine(PreventSwitch());
