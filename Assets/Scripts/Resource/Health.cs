@@ -92,6 +92,27 @@ namespace Resource
         private void Death()
         {
             isDead = true;
+
+            if (gameObject.CompareTag("Enemy"))
+            {
+                EnemyDeath();
+            }
+            else if (gameObject.CompareTag("Player"))
+            {
+                PlayerDeath();
+            }
+        }
+
+        private void EnemyDeath()
+        {
+            gameObject.GetComponent<Enemy.Reward>().DropItem();
+            Destroy(gameObject);
+        }
+
+        private void PlayerDeath()
+        {
+            Time.timeScale = 0;
+            Debug.Log("YOU DIED!");
         }
 
         private IEnumerator IndicateDamage(float damage, Color colour)
