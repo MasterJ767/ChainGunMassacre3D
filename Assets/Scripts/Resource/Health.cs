@@ -24,8 +24,7 @@ namespace Resource
         public Gradient healthColour;
 
         public bool hasDamageIndicator;
-        public Canvas damageIndicator;
-        public TextMeshProUGUI damageIndicatorText;
+        public GameObject damageIndicatorPrefab;
 
         private bool isDead = false;
 
@@ -78,7 +77,7 @@ namespace Resource
         {
             if (hasDamageIndicator)
             {
-                StartCoroutine(IndicateDamage(value, colour));
+                IndicateDamage(value, colour);
             }
             Damage(value);
         }
@@ -115,13 +114,13 @@ namespace Resource
             Debug.Log("YOU DIED!");
         }
 
-        private IEnumerator IndicateDamage(float damage, Color colour)
+        private void IndicateDamage(float damage, Color colour)
         {
+            GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2.5f,0), transform.rotation);
+            TextMeshProUGUI damageIndicatorText = damageIndicator.GetComponentInChildren<TextMeshProUGUI>();
             damageIndicatorText.text = damage.ToString("0.0");
-            damageIndicatorText.color = colour;
-            damageIndicator.gameObject.SetActive(true);
-            yield return new WaitForSeconds(1f);
-            damageIndicator.gameObject.SetActive(false);
+            damageIndicatorText.color = new Color(colour.r, colour.g, colour.b, 0.5f);
+            Destroy(damageIndicator, 1f);
         }
     }
 }
