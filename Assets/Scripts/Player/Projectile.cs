@@ -8,6 +8,7 @@ namespace Player
     public class Projectile : MonoBehaviour
     {
         public GameObject projectileCoating;
+        public GameObject electricEffectPrefab;
         
         private Weapon weapon;
 
@@ -50,28 +51,34 @@ namespace Player
                 Resource.Health enemyHealth = other.gameObject.GetComponent<Resource.Health>();
                 enemyHealth.Damage(damage, elementalParameters.bulletColour);
 
-                switch (elementalEffect)
+                if (other.gameObject != null)
                 {
-                    case ElementalEffect.NONE:
-                        break;
-                    case ElementalEffect.ELECTRIC:
-                        //
-                        break;
-                    case ElementalEffect.FIRE:
-                        //
-                        break;
-                    case ElementalEffect.ICE:
-                        //
-                        break;
-                    case ElementalEffect.POISON:
-                        //
-                        break;
-                    case ElementalEffect.EARTH:
-                        //
-                        break;
-                    case ElementalEffect.AIR:
-                        //
-                        break;
+                    switch (elementalEffect)
+                    {
+                        case ElementalEffect.NONE:
+                            break;
+                        case ElementalEffect.ELECTRIC:
+                            GameObject electricEffectGameObject = Instantiate(electricEffectPrefab,
+                                other.transform.position, Quaternion.identity);
+                            electricEffectGameObject.GetComponent<EffectElectric>()
+                                .StartElectricAttack(other, (ElectricParameters)elementalParameters, weapon);
+                            break;
+                        case ElementalEffect.FIRE:
+                            //
+                            break;
+                        case ElementalEffect.ICE:
+                            //
+                            break;
+                        case ElementalEffect.POISON:
+                            //
+                            break;
+                        case ElementalEffect.EARTH:
+                            //
+                            break;
+                        case ElementalEffect.AIR:
+                            //
+                            break;
+                    }
                 }
 
                 if (pierceCount <= 0)

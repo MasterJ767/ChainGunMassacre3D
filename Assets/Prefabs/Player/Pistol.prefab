@@ -95,7 +95,7 @@ MonoBehaviour:
   spreadCount: 1
   spreadAngle: 0
   elementalEffect: 0
-  elementalFrequency: 10
+  elementalFrequency: 0
   killCount: 0
   level: 0
   ammoText: {fileID: 0}

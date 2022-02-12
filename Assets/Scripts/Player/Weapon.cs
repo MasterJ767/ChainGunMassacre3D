@@ -54,6 +54,8 @@ namespace Player
             
             elementalParameters = new NoneParameters(new Color(1, 1, 0, 0f));
             elementalEffect = ElementalEffect.NONE;
+            
+            AddElectricEffect();
         }
 
         private void Update()
@@ -139,7 +141,7 @@ namespace Player
                     bulletGameObject.GetComponent<Rigidbody>().velocity = bulletDirection * shotSpeed;
                     
                     Projectile bullet = bulletGameObject.GetComponent<Projectile>();
-                    if (elementalEffect != ElementalEffect.NONE && Random.Range(0f, 1f) <= (1f / elementalFrequency))
+                    if (elementalEffect != ElementalEffect.NONE && (Random.Range(0f, 1f) <= (1f / elementalFrequency) || elementalFrequency <= 0))
                     {
                         bullet.Initialise(playerAttackController.GetCurrentWeapon(), elementalParameters, elementalEffect, damage, knockback, pierceCount);
                     }

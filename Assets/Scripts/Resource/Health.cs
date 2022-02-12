@@ -105,7 +105,8 @@ namespace Resource
         private void EnemyDeath()
         {
             gameObject.GetComponent<Enemy.Reward>().DropItem();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            Destroy(gameObject, 2f);
         }
 
         private void PlayerDeath()
