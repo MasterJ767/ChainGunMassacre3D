@@ -117,7 +117,8 @@ namespace Resource
 
         private void IndicateDamage(float damage, Color colour)
         {
-            GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2.5f,0), transform.rotation);
+            Collider colldier = gameObject.GetComponent<Collider>();
+            GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2 * colldier.bounds.size.y, 0), transform.rotation);
             TextMeshProUGUI damageIndicatorText = damageIndicator.GetComponentInChildren<TextMeshProUGUI>();
             damageIndicatorText.text = damage.ToString("0.0");
             damageIndicatorText.color = new Color(colour.r, colour.g, colour.b, 0.5f);
