@@ -58,13 +58,12 @@ namespace Player
                         case ElementalEffect.NONE:
                             break;
                         case ElementalEffect.ELECTRIC:
-                            GameObject electricEffectGameObject = Instantiate(electricEffectPrefab,
-                                other.transform.position, Quaternion.identity);
-                            electricEffectGameObject.GetComponent<EffectElectric>()
-                                .StartElectricAttack(other, (ElectricParameters)elementalParameters, weapon);
+                            GameObject electricEffectGameObject = Instantiate(electricEffectPrefab,other.transform.position, Quaternion.identity);
+                            electricEffectGameObject.GetComponent<EffectElectric>().StartElectricAttack(other, (ElectricParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.FIRE:
-                            //
+                            Enemy.Effects enemyEffects = other.gameObject.GetComponent<Enemy.Effects>();
+                            enemyEffects.StartFireAttack((FireParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.ICE:
                             //

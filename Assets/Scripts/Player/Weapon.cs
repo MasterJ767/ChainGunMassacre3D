@@ -47,7 +47,7 @@ namespace Player
 
         [HideInInspector]
         public float fireCooldown = 0f;
-
+        
         private void Start()
         {
             Refill(maxAmmo);
