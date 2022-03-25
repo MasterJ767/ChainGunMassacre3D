@@ -43,3 +43,7 @@ The following assets were taken from the Unity Store and used in my project:
 
 #### [POLYGON - Weapons](https://assetstore.unity.com/packages/3d/props/guns/polygon-weapons-157724)
 - Knife
+
+#### [Low Poly Rock Pack](https://assetstore.unity.com/packages/3d/environments/low-poly-rock-pack-57874)
+
+#### [Low Poly Tree Pack](https://assetstore.unity.com/packages/3d/vegetation/trees/low-poly-tree-pack-57866)

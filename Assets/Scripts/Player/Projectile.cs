@@ -73,7 +73,7 @@ namespace Player
                             enemyEffects.StartPoisonAttack((PoisonParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.EARTH:
-                            //
+                            enemyEffects.StartEarthAttack((EarthParameters)elementalParameters, weapon, ((EarthParameters)elementalParameters).repeat);
                             break;
                         case ElementalEffect.AIR:
                             //

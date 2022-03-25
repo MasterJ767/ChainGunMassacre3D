@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Player;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemy
 {
@@ -22,15 +23,15 @@ namespace Enemy
         private Dictionary<ElementalEffect, EffectInformation> effectStatus;
         private Color tintColor;
         private bool fadeTint = false;
-        private float tintFadeSpeed = 6f;
+        private float tintFadeSpeed = 5f;
 
         private void Awake()
         {
             effectStatus = new Dictionary<ElementalEffect, EffectInformation>();
-            effectStatus.Add(ElementalEffect.FIRE, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null));
-            effectStatus.Add(ElementalEffect.ICE, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null));
-            effectStatus.Add(ElementalEffect.POISON, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null));
-            effectStatus.Add(ElementalEffect.EARTH, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null));
+            effectStatus.Add(ElementalEffect.FIRE, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null, 0));
+            effectStatus.Add(ElementalEffect.ICE, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null,0));
+            effectStatus.Add(ElementalEffect.POISON, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null,0));
+            effectStatus.Add(ElementalEffect.EARTH, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null,0));
 
             tintColor = new Color(baseColour.r, baseColour.g, baseColour.b, 0);
         }
@@ -60,6 +61,11 @@ namespace Enemy
                 Effects enemyEffects = other.gameObject.GetComponent<Effects>();
                 enemyEffects.StartIceAttack((IceParameters)effectStatus[ElementalEffect.ICE].parameters, effectStatus[ElementalEffect.ICE].weapon);
             }
+        }
+
+        private void SetColour(Color colour)
+        {
+            mesh.material.SetColor(Shader.PropertyToID("_Colour"), colour);
         }
 
         private void SetTint(Color colour)
@@ -139,8 +145,8 @@ namespace Enemy
             {
                 health.Damage(parameters.damage, parameters.bulletColour, DamageType.FIRE);
                 
-                time -= parameters.frequency;
-                yield return new WaitForSeconds(parameters.frequency);
+                time -= parameters.delay;
+                yield return new WaitForSeconds(parameters.delay);
             }
             
             movement.speedLevel -= parameters.speedBoost;
@@ -252,8 +258,8 @@ namespace Enemy
             {
                 health.Damage(parameters.damage, parameters.bulletColour, DamageType.POISON);
                 
-                time -= parameters.frequency;
-                yield return new WaitForSeconds(parameters.frequency);
+                time -= parameters.delay;
+                yield return new WaitForSeconds(parameters.delay);
             }
 
             ToggleTrail(false);
@@ -261,9 +267,76 @@ namespace Enemy
             effectStatus[ElementalEffect.POISON].active = false;
         }
 
-        public void StartEarthAttack(EarthParameters parameters, Weapon weapon)
+        public void StartEarthAttack(EarthParameters parameters, Weapon weapon, int repeats)
         {
+            if (effectStatus[ElementalEffect.EARTH].active)
+            {
+                return;
+            }
+
+            fadeTint = false;
             
+            if (effectStatus[ElementalEffect.FIRE].active)
+            {
+                ClearFire();
+            }
+
+            if (effectStatus[ElementalEffect.ICE].active)
+            {
+                ClearIce();
+            }
+            
+            if (effectStatus[ElementalEffect.POISON].active)
+            {
+                ClearPoison();
+            }
+
+            SetColour(earthTint);
+            SetTint(earthTint);
+            
+            effectStatus[ElementalEffect.EARTH].active = true;
+            effectStatus[ElementalEffect.EARTH].parameters = parameters;
+            effectStatus[ElementalEffect.EARTH].weapon = weapon;
+            effectStatus[ElementalEffect.EARTH].repeats = repeats;
+            
+            StartCoroutine(nameof(EarthAttack));
+        }
+        
+        private void ClearEarth()
+        {
+            StopCoroutine(nameof(EarthAttack));
+            GetComponent<Movement>().EnableMovement();
+            SetColour(baseColour);
+            SetTint(new Color(tintColor.r, tintColor.g, tintColor.b, 0));
+            effectStatus[ElementalEffect.EARTH].active = false;
+        }
+
+        private IEnumerator EarthAttack()
+        {
+            Movement movement = GetComponent<Movement>();
+            EarthParameters parameters = (EarthParameters)effectStatus[ElementalEffect.EARTH].parameters;
+            
+            movement.DisableMovement();
+            
+            float time = parameters.duration;
+            Vector3 origin = transform.position;
+
+            while (time > 0)
+            {
+                float angle = (2 * Mathf.PI * Random.value);
+                Vector3 direction = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized * parameters.range;
+                float elevation = direction.magnitude * Mathf.Tan(75);
+                Vector3 apex = origin + direction + new Vector3(0, elevation, 0);
+                Vector3 trajectory = (apex - origin);
+                
+                time -= parameters.delay;
+                yield return new WaitForSeconds(parameters.delay);
+            }
+            
+            movement.EnableMovement();
+            SetColour(baseColour);
+            fadeTint = true;
+            effectStatus[ElementalEffect.EARTH].active = false;
         }
 
         public ElementalEffect GetActiveEffect()
@@ -317,12 +390,14 @@ namespace Enemy
         public bool active;
         public ElementalParameters parameters;
         public Weapon weapon;
+        public int repeats;
 
-        public EffectInformation(bool activeStatus, ElementalParameters elementalParameters, Weapon weaponInformation)
+        public EffectInformation(bool activeStatus, ElementalParameters elementalParameters, Weapon weaponInformation, int repeatCount)
         {
             active = activeStatus;
             parameters = elementalParameters;
             weapon = weaponInformation;
+            repeats = repeatCount;
         }
     }
 }

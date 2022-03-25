@@ -55,7 +55,7 @@ namespace Player
             elementalParameters = new NoneParameters(new Color(1, 1, 0, 0f));
             elementalEffect = ElementalEffect.NONE;
             
-            AddPoisonEffect();
+            AddEarthEffect();
         }
 
         private void Update()

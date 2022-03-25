@@ -58,11 +58,13 @@ namespace Enemy
         public void DisableMovement()
         {
             canMove = false;
+            rb.mass = 1000;
         }
 
         public void EnableMovement()
         {
             canMove = true;
+            rb.mass = 1;
         }
 
         public void Knockback(float force)
