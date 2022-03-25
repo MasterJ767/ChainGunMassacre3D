@@ -54,6 +54,16 @@ namespace Enemy
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5);
             rb.velocity += (step * (speed * Mathf.Clamp01(speed - rb.velocity.magnitude)));
         }
+        
+        public void DisableMovement()
+        {
+            canMove = false;
+        }
+
+        public void EnableMovement()
+        {
+            canMove = true;
+        }
 
         public void Knockback(float force)
         {
@@ -63,7 +73,7 @@ namespace Enemy
                 StartCoroutine(DisableKnockback());
             }
         }
-        
+
         private IEnumerator DisableKnockback()
         {
             canKnockback = false;

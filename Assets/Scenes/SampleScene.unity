@@ -1898,6 +1898,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 148585140}
     - target: {fileID: 3464759400628740354, guid: 5eaa4d622db58aa4c92e2b01e0df56e2, type: 3}
+      propertyPath: damage
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3464759400628740354, guid: 5eaa4d622db58aa4c92e2b01e0df56e2, type: 3}
       propertyPath: ammoText
       value: 
       objectReference: {fileID: 978276776}

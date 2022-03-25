@@ -55,7 +55,7 @@ namespace Player
             elementalParameters = new NoneParameters(new Color(1, 1, 0, 0f));
             elementalEffect = ElementalEffect.NONE;
             
-            AddElectricEffect();
+            AddFireEffect();
         }
 
         private void Update()
@@ -172,7 +172,7 @@ namespace Player
             if (elementalEffect == ElementalEffect.NONE)
             {
                 elementalEffect = ElementalEffect.FIRE;
-                elementalParameters = new FireParameters(new Color(1, 0.3f, 0, 0.5f), 1f, 3f, 3);
+                elementalParameters = new FireParameters(new Color(1, 0.25f, 0, 0.5f), 0.1f, 3f, 0.2f, 3);
             }
         }
         
@@ -190,7 +190,7 @@ namespace Player
             if (elementalEffect == ElementalEffect.NONE)
             {
                 elementalEffect = ElementalEffect.POISON;
-                elementalParameters = new PoisonParameters(new Color(0, 1, 0, 0.5f), 2f, 3f, 1f, 7f);
+                elementalParameters = new PoisonParameters(new Color(0, 1, 0, 0.5f), 0.2f, 3f, 0.2f,1f, 7f);
             }
         }
 

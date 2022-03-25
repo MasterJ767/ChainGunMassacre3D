@@ -40,13 +40,15 @@ namespace Player
     {
         public float damage;
         public float duration;
+        public float frequency;
         public int speedBoost;
 
-        public FireParameters(Color Bulletcolour, float Damage, float Duration, int SpeedBoost)
+        public FireParameters(Color Bulletcolour, float Damage, float Duration, float Frequency, int SpeedBoost)
         {
             bulletColour = Bulletcolour;
             damage = Damage;
             duration = Duration;
+            frequency = Frequency;
             speedBoost = SpeedBoost;
         }
     }
@@ -68,14 +70,16 @@ namespace Player
     {
         public float damage;
         public float duration;
+        public float frequency;
         public float cloudSize;
         public float cloudDuration;
         
-        public PoisonParameters(Color Bulletcolour, float Damage, float Duration, float CloudSize, float CloudDuration)
+        public PoisonParameters(Color Bulletcolour, float Damage, float Duration, float Frequency, float CloudSize, float CloudDuration)
         {
             bulletColour = Bulletcolour;
             damage = Damage;
             duration = Duration;
+            frequency = Frequency;
             cloudSize = CloudSize;
             cloudDuration = CloudDuration;
         }

@@ -50,8 +50,10 @@ namespace Player
 
                 Resource.Health enemyHealth = other.gameObject.GetComponent<Resource.Health>();
                 enemyHealth.Damage(damage, elementalParameters.bulletColour);
+                
+                Enemy.Effects enemyEffects = other.gameObject.GetComponent<Enemy.Effects>();
 
-                if (other.gameObject != null)
+                if (other.gameObject != null && !enemyHealth.isDead)
                 {
                     switch (elementalEffect)
                     {
@@ -62,11 +64,10 @@ namespace Player
                             electricEffectGameObject.GetComponent<EffectElectric>().StartElectricAttack(other, (ElectricParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.FIRE:
-                            Enemy.Effects enemyEffects = other.gameObject.GetComponent<Enemy.Effects>();
                             enemyEffects.StartFireAttack((FireParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.ICE:
-                            //
+                            enemyEffects.StartIceAttack((IceParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.POISON:
                             //

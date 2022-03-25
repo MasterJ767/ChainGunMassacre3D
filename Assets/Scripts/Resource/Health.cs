@@ -26,7 +26,8 @@ namespace Resource
         public bool hasDamageIndicator;
         public GameObject damageIndicatorPrefab;
 
-        private bool isDead = false;
+        [NonSerialized]
+        public bool isDead = false;
 
         private void Start()
         {
