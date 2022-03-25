@@ -49,7 +49,7 @@ namespace Player
                 enemyRigidbody.AddForce(rb.velocity.normalized * knockback, ForceMode.Impulse);
 
                 Resource.Health enemyHealth = other.gameObject.GetComponent<Resource.Health>();
-                enemyHealth.Damage(damage, elementalParameters.bulletColour);
+                enemyHealth.Damage(damage, elementalParameters.bulletColour, DamageType.WEAPON);
                 
                 Enemy.Effects enemyEffects = other.gameObject.GetComponent<Enemy.Effects>();
 
@@ -70,7 +70,7 @@ namespace Player
                             enemyEffects.StartIceAttack((IceParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.POISON:
-                            //
+                            enemyEffects.StartPoisonAttack((PoisonParameters)elementalParameters, weapon);
                             break;
                         case ElementalEffect.EARTH:
                             //

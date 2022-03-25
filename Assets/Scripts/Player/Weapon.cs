@@ -55,7 +55,7 @@ namespace Player
             elementalParameters = new NoneParameters(new Color(1, 1, 0, 0f));
             elementalEffect = ElementalEffect.NONE;
             
-            AddFireEffect();
+            AddPoisonEffect();
         }
 
         private void Update()
@@ -229,5 +229,17 @@ namespace Player
         NONE,
         RANDOM,
         FIXED
+    }
+
+    public enum DamageType
+    {
+        NONE,
+        WEAPON,
+        ELECTRIC,
+        FIRE,
+        POISON,
+        EARTH,
+        AIR,
+        ENEMY
     }
 }

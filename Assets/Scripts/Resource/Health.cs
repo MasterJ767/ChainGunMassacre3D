@@ -23,8 +23,10 @@ namespace Resource
         public TextMeshProUGUI healthText;
         public Gradient healthColour;
 
-        public bool hasDamageIndicator;
+        public bool hasInstantiatedEffects;
+        public Transform effectParent;
         public GameObject damageIndicatorPrefab;
+        public GameObject poisonCloud;
 
         [NonSerialized]
         public bool isDead = false;
@@ -63,24 +65,24 @@ namespace Resource
             }
         }
 
-        public void Damage(float value)
+        public void Damage(float value, Player.DamageType damageType)
         {
             timeSinceHit = 0;
             currentHealth = Mathf.Max(0, currentHealth - value);
             SetHealthSlider();
             if (currentHealth <= 0 && !isDead)
             {
-                Death();
+                Death(damageType);
             }
         }
         
-        public void Damage(float value, Color colour)
+        public void Damage(float value, Color colour, Player.DamageType damageType)
         {
-            if (hasDamageIndicator)
+            if (hasInstantiatedEffects)
             {
                 IndicateDamage(value, colour);
             }
-            Damage(value);
+            Damage(value, damageType);
         }
 
         public void Heal(float value)
@@ -89,13 +91,13 @@ namespace Resource
             SetHealthSlider();
         }
 
-        private void Death()
+        private void Death(Player.DamageType damageType)
         {
             isDead = true;
 
             if (gameObject.CompareTag("Enemy"))
             {
-                EnemyDeath();
+                EnemyDeath(damageType);
             }
             else if (gameObject.CompareTag("Player"))
             {
@@ -103,8 +105,16 @@ namespace Resource
             }
         }
 
-        private void EnemyDeath()
+        private void EnemyDeath(Player.DamageType damageType)
         {
+            if (damageType == Player.DamageType.POISON && hasInstantiatedEffects)
+            {
+                Enemy.Effects effects = GetComponent<Enemy.Effects>();
+                Enemy.EffectInformation effectInformation = effects.GetEffectInformation(Player.ElementalEffect.POISON);
+                GameObject poisonCloudGO = Instantiate(poisonCloud, transform.position, Quaternion.identity, effectParent);
+                poisonCloudGO.GetComponent<Player.EffectPoison>().Initialise((Player.PoisonParameters)effectInformation.parameters, effectInformation.weapon);
+                Destroy(poisonCloudGO, ((Player.PoisonParameters)effectInformation.parameters).cloudDuration);
+            }
             gameObject.GetComponent<Enemy.Reward>().DropItem();
             gameObject.SetActive(false);
             Destroy(gameObject, 2f);
@@ -119,7 +129,7 @@ namespace Resource
         private void IndicateDamage(float damage, Color colour)
         {
             Collider colldier = gameObject.GetComponent<Collider>();
-            GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2 * colldier.bounds.size.y, 0), transform.rotation);
+            GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2 * colldier.bounds.size.y, 0), transform.rotation, effectParent);
             TextMeshProUGUI damageIndicatorText = damageIndicator.GetComponentInChildren<TextMeshProUGUI>();
             damageIndicatorText.text = damage.ToString("0.0");
             damageIndicatorText.color = new Color(colour.r, colour.g, colour.b, 0.5f);

@@ -110,7 +110,7 @@ namespace Player
                     continue;
                 }
                 
-                targetHealth.Damage(parameters.damage, parameters.bulletColour);
+                targetHealth.Damage(parameters.damage, parameters.bulletColour, DamageType.ELECTRIC);
             }
 
             yield return new WaitForSeconds(parameters.delay);

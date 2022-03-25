@@ -17,7 +17,7 @@ namespace Enemy
             {
                 StartCoroutine(AttackCooldown());
                 
-                other.gameObject.GetComponent<Resource.Health>().Damage(damage);
+                other.gameObject.GetComponent<Resource.Health>().Damage(damage, Player.DamageType.ENEMY);
             }
         }
 

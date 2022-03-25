@@ -137,7 +137,7 @@ namespace Enemy
 
             while (time > 0)
             {
-                health.Damage(parameters.damage, parameters.bulletColour);
+                health.Damage(parameters.damage, parameters.bulletColour, DamageType.FIRE);
                 
                 time -= parameters.frequency;
                 yield return new WaitForSeconds(parameters.frequency);
@@ -250,7 +250,7 @@ namespace Enemy
 
             while (time > 0)
             {
-                health.Damage(parameters.damage, parameters.bulletColour);
+                health.Damage(parameters.damage, parameters.bulletColour, DamageType.POISON);
                 
                 time -= parameters.frequency;
                 yield return new WaitForSeconds(parameters.frequency);
@@ -299,6 +299,16 @@ namespace Enemy
             }
 
             return effectStatus[effectType].active;
+        }
+
+        public EffectInformation GetEffectInformation(ElementalEffect effectType)
+        {
+            if (!effectStatus.ContainsKey(effectType))
+            {
+                return null;
+            }
+
+            return effectStatus[effectType];
         }
     }
 
