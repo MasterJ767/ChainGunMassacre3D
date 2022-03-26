@@ -45,5 +45,6 @@ The following assets were taken from the Unity Store and used in my project:
 - Knife
 
 #### [Low Poly Rock Pack](https://assetstore.unity.com/packages/3d/environments/low-poly-rock-pack-57874)
+- Rock Type2 04
 
 #### [Low Poly Tree Pack](https://assetstore.unity.com/packages/3d/vegetation/trees/low-poly-tree-pack-57866)

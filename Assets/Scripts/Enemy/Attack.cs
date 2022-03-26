@@ -27,5 +27,15 @@ namespace Enemy
             yield return new WaitForSeconds(attackDelay);
             canAttack = true;
         }
+
+        public void DisableAttack()
+        {
+            canAttack = false;
+        }
+
+        public void EnableAttack()
+        {
+            canAttack = true;
+        }
     }
 }

@@ -17,13 +17,15 @@ namespace Enemy
         public Color poisonTint;
         public Gradient poisonTrailGradient;
         public Color earthTint;
+        public GameObject rock;
         public SkinnedMeshRenderer mesh;
         public ParticleSystem trail;
-        
+
         private Dictionary<ElementalEffect, EffectInformation> effectStatus;
-        private Color tintColor;
+        private Color tintColour;
         private bool fadeTint = false;
         private float tintFadeSpeed = 5f;
+        private Transform effectParent;
 
         private void Awake()
         {
@@ -33,17 +35,20 @@ namespace Enemy
             effectStatus.Add(ElementalEffect.POISON, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null,0));
             effectStatus.Add(ElementalEffect.EARTH, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null,0));
 
-            tintColor = new Color(baseColour.r, baseColour.g, baseColour.b, 0);
+            Resource.Health health = GetComponent<Resource.Health>();
+            effectParent = health.effectParent;
+            
+            tintColour = new Color(baseColour.r, baseColour.g, baseColour.b, 0);
         }
 
         private void Update()
         {
-            if (fadeTint && tintColor.a > 0)
+            if (fadeTint && tintColour.a > 0)
             {
-                tintColor.a = Mathf.Clamp01(tintColor.a - tintFadeSpeed * Time.deltaTime);
-                SetTint(tintColor);
+                tintColour.a = Mathf.Clamp01(tintColour.a - tintFadeSpeed * Time.deltaTime);
+                SetTint(tintColour);
             }
-            else if (tintColor.a <= 0)
+            else if (tintColour.a <= 0)
             {
                 fadeTint = false;
             }
@@ -70,8 +75,8 @@ namespace Enemy
 
         private void SetTint(Color colour)
         {
-            tintColor = colour;
-            mesh.material.SetColor(Shader.PropertyToID("_Tint"), tintColor);
+            tintColour = colour;
+            mesh.material.SetColor(Shader.PropertyToID("_Tint"), tintColour);
         }
 
         private void SetTrail(Gradient gradient)
@@ -127,7 +132,7 @@ namespace Enemy
             StopCoroutine(nameof(FireAttack));
             GetComponent<Movement>().speedLevel -= ((FireParameters)effectStatus[ElementalEffect.FIRE].parameters).speedBoost;
             ToggleTrail(false);
-            SetTint(new Color(tintColor.r, tintColor.g, tintColor.b, 0));
+            SetTint(new Color(tintColour.r, tintColour.g, tintColour.b, 0));
             effectStatus[ElementalEffect.FIRE].active = false;
         }
 
@@ -190,7 +195,7 @@ namespace Enemy
             StopCoroutine(nameof(IceAttack));
             GetComponent<Movement>().speedLevel += ((IceParameters)effectStatus[ElementalEffect.ICE].parameters).speedDrop;
             ToggleTrail(false);
-            SetTint(new Color(tintColor.r, tintColor.g, tintColor.b, 0));
+            SetTint(new Color(tintColour.r, tintColour.g, tintColour.b, 0));
             effectStatus[ElementalEffect.ICE].active = false;
         }
 
@@ -243,7 +248,7 @@ namespace Enemy
         {
             StopCoroutine(nameof(PoisonAttack));
             ToggleTrail(false);
-            SetTint(new Color(tintColor.r, tintColor.g, tintColor.b, 0));
+            SetTint(new Color(tintColour.r, tintColour.g, tintColour.b, 0));
             effectStatus[ElementalEffect.POISON].active = false;
         }
 
@@ -305,34 +310,41 @@ namespace Enemy
         private void ClearEarth()
         {
             StopCoroutine(nameof(EarthAttack));
+            GetComponentInChildren<Attack>().EnableAttack();
             GetComponent<Movement>().EnableMovement();
             SetColour(baseColour);
-            SetTint(new Color(tintColor.r, tintColor.g, tintColor.b, 0));
+            SetTint(new Color(tintColour.r, tintColour.g, tintColour.b, 0));
             effectStatus[ElementalEffect.EARTH].active = false;
         }
 
         private IEnumerator EarthAttack()
         {
             Movement movement = GetComponent<Movement>();
+            Attack attack = GetComponentInChildren<Attack>();
             EarthParameters parameters = (EarthParameters)effectStatus[ElementalEffect.EARTH].parameters;
             
             movement.DisableMovement();
-            
+            attack.DisableAttack();
+
             float time = parameters.duration;
-            Vector3 origin = transform.position;
 
             while (time > 0)
             {
+                Vector3 origin = transform.position;
                 float angle = (2 * Mathf.PI * Random.value);
-                Vector3 direction = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized * parameters.range;
-                float elevation = direction.magnitude * Mathf.Tan(75);
+                Vector3 direction = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)).normalized * (parameters.range / 2f);
+                float elevation = direction.magnitude * Mathf.Tan(80);
                 Vector3 apex = origin + direction + new Vector3(0, elevation, 0);
                 Vector3 trajectory = (apex - origin);
+                GameObject rockGO = Instantiate(rock, origin + new Vector3(0, 1f, 0), Quaternion.identity, effectParent);
+                rockGO.GetComponent<EffectEarth>().Initialise(parameters, effectStatus[ElementalEffect.EARTH].weapon, effectStatus[ElementalEffect.EARTH].repeats, gameObject);
+                rockGO.GetComponent<Rigidbody>().velocity = trajectory;
                 
                 time -= parameters.delay;
                 yield return new WaitForSeconds(parameters.delay);
             }
             
+            attack.EnableAttack();
             movement.EnableMovement();
             SetColour(baseColour);
             fadeTint = true;

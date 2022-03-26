@@ -199,7 +199,7 @@ namespace Player
             if (elementalEffect == ElementalEffect.NONE)
             {
                 elementalEffect = ElementalEffect.EARTH;
-                elementalParameters = new EarthParameters(new Color(0.5f, 0.25f, 0, 0.5f), 2f, 3f, 0, 0.6f, 3f);
+                elementalParameters = new EarthParameters(new Color(0.5f, 0.25f, 0, 0.5f), 1f, 3f, 0, 0.95f, 3f);
             }
         }
 

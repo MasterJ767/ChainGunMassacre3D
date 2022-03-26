@@ -34,8 +34,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5734626776568285023}
   - {fileID: 5736259187038205121}
+  - {fileID: 5734626776568285023}
   - {fileID: 1867537180951820905}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -245,6 +245,7 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   earthTint: {r: 0.5, g: 0.25, b: 0, a: 1}
+  rock: {fileID: 2915945358146079934, guid: 744a17202e4823043bd90528e8c7a03c, type: 3}
   mesh: {fileID: 5655942374863212347}
   trail: {fileID: 1333966252662361574}
 --- !u!114 &5736259186384463993
@@ -294,7 +295,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5736259186384463989}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5736259187038205127
 BoxCollider:
@@ -336,7 +337,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010692086626, guid: 9c8e6b52a146b2d4994f42592a19bba0, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000010692086626, guid: 9c8e6b52a146b2d4994f42592a19bba0, type: 3}
       propertyPath: m_LocalScale.x
