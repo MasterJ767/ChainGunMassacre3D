@@ -7,7 +7,7 @@ namespace Player
     [RequireComponent(typeof(Rigidbody))]
     public class Projectile : MonoBehaviour
     {
-        public GameObject projectileCoating;
+        public MeshRenderer mesh;
         public GameObject electricEffectPrefab;
         public GameObject airEffectPrefab;
         
@@ -37,7 +37,7 @@ namespace Player
             knockback = Knockback;
             pierceCount = PierceCount;
 
-            projectileCoating.GetComponent<MeshRenderer>().material.color = elementalParameters.bulletColour;
+            mesh.material.SetColor(Shader.PropertyToID("_Tint"), elementalParameters.bulletColour);
         }
 
         private void OnTriggerEnter(Collider other)
