@@ -85,10 +85,20 @@ namespace Resource
             Damage(value, damageType);
         }
 
+        public float DamageQuery(float value)
+        {
+            return Mathf.Max(0, currentHealth - value);
+        }
+
         public void Heal(float value)
         {
             currentHealth = Mathf.Min(maxHealth, currentHealth + value);
             SetHealthSlider();
+        }
+
+        public float HealQuery(float value)
+        {
+            return Mathf.Min(maxHealth, currentHealth + value);
         }
 
         private void Death(Player.DamageType damageType)

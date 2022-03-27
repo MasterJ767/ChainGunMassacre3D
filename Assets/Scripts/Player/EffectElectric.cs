@@ -7,12 +7,13 @@ namespace Player
 {
     public class EffectElectric : MonoBehaviour
     {
+        public GameObject electricEffectPrefab;
         public GameObject electricLine;
         public LayerMask enemyLayer;
         
-        public void StartElectricAttack(Collider enemy, ElectricParameters parameters, Weapon weapon)
+        public void StartElectricAttack(Collider enemy, ElectricParameters parameters, Weapon weapon, int repeats)
         {
-            StartCoroutine(ElectricAttack(enemy, parameters, weapon, parameters.repeat));
+            StartCoroutine(ElectricAttack(enemy, parameters, weapon, repeats));
         }
 
         private IEnumerator ElectricAttack(Collider enemy, ElectricParameters parameters, Weapon weapon, int repeats)
@@ -30,12 +31,22 @@ namespace Player
                     continue;
                 }
 
+                if (target.gameObject == null)
+                {
+                    continue;
+                }
+
                 if (validTargets.Contains(target.gameObject))
                 {
                     continue;
                 }
 
                 if (target.gameObject.activeSelf == false)
+                {
+                    continue;
+                }
+
+                if (!target.gameObject.CompareTag("Enemy"))
                 {
                     continue;
                 }
@@ -122,17 +133,12 @@ namespace Player
                 GameObject nextChain = validTargets[Random.Range(0, validTargets.Count)];
                 if (nextChain)
                 {
-                    StartCoroutine(ElectricAttack(nextChain.GetComponent<Collider>(), parameters, weapon, repeats));
-                }
-                else
-                {
-                    Destroy(gameObject);
+                    GameObject electricEffectGameObject = Instantiate(electricEffectPrefab, nextChain.transform.position, Quaternion.identity, nextChain.GetComponent<Resource.Health>().effectParent);
+                    electricEffectGameObject.GetComponent<EffectElectric>().StartElectricAttack(nextChain.GetComponent<Collider>(), parameters, weapon, repeats - 1);
                 }
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+
+            Destroy(gameObject);
         }
     }
 }

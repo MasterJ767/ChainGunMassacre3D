@@ -163,6 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileCoating: {fileID: 4108080183494347795}
   electricEffectPrefab: {fileID: 739596232992187971, guid: f7b1917dcf9ee0b4eb5b84be5de38700, type: 3}
+  airEffectPrefab: {fileID: 7267367216162374524, guid: 9b075607cc29d2b4587bcd3c3b2a1a2f, type: 3}
 --- !u!1001 &8948317813160258932
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ namespace Player
     {
         public GameObject projectileCoating;
         public GameObject electricEffectPrefab;
+        public GameObject airEffectPrefab;
         
         private Weapon weapon;
 
@@ -60,8 +61,8 @@ namespace Player
                         case ElementalEffect.NONE:
                             break;
                         case ElementalEffect.ELECTRIC:
-                            GameObject electricEffectGameObject = Instantiate(electricEffectPrefab,other.transform.position, Quaternion.identity);
-                            electricEffectGameObject.GetComponent<EffectElectric>().StartElectricAttack(other, (ElectricParameters)elementalParameters, weapon);
+                            GameObject electricEffectGameObject = Instantiate(electricEffectPrefab,other.transform.position, Quaternion.identity, enemyHealth.effectParent);
+                            electricEffectGameObject.GetComponent<EffectElectric>().StartElectricAttack(other, (ElectricParameters)elementalParameters, weapon, ((ElectricParameters)elementalParameters).repeat);
                             break;
                         case ElementalEffect.FIRE:
                             enemyEffects.StartFireAttack((FireParameters)elementalParameters, weapon);
@@ -76,7 +77,8 @@ namespace Player
                             enemyEffects.StartEarthAttack((EarthParameters)elementalParameters, weapon, ((EarthParameters)elementalParameters).repeat);
                             break;
                         case ElementalEffect.AIR:
-                            //
+                            GameObject airEffectGameObject = Instantiate(airEffectPrefab, other.transform.position, Quaternion.identity, enemyHealth.effectParent);
+                            airEffectGameObject.GetComponent<EffectAir>().StartAirAttack(other, (AirParameters)elementalParameters, weapon, ((AirParameters)elementalParameters).repeat);
                             break;
                     }
                 }

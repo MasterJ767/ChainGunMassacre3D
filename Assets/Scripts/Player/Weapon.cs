@@ -55,7 +55,7 @@ namespace Player
             elementalParameters = new NoneParameters(new Color(1, 1, 0, 0f));
             elementalEffect = ElementalEffect.NONE;
             
-            AddEarthEffect();
+            AddAirEffect();
         }
 
         private void Update()
@@ -205,10 +205,10 @@ namespace Player
 
         private void AddAirEffect()
         {
-            if (elementalEffect == ElementalEffect.AIR)
+            if (elementalEffect == ElementalEffect.NONE)
             {
                 elementalEffect = ElementalEffect.AIR;
-                elementalParameters = new AirParameters(new Color(0.75f, 0.75f, 1, 0.5f), 1f, 2f, 0, 3f);
+                elementalParameters = new AirParameters(new Color(0.75f, 0.75f, 1, 0.5f), 1f, 3f, 0, 3f);
             }
         }
     }

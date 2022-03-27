@@ -71,7 +71,16 @@ namespace Enemy
         {
             if (canKnockback)
             {
-                rb.AddForce(-rb.velocity * force, ForceMode.Impulse);
+                rb.velocity = -rb.velocity * force;
+                StartCoroutine(DisableKnockback());
+            }
+        }
+
+        public void Knockback(Vector3 force)
+        {
+            if (canKnockback)
+            {
+                rb.velocity = force;
                 StartCoroutine(DisableKnockback());
             }
         }
