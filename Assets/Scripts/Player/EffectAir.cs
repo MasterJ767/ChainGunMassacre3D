@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,14 @@ namespace Player
         public GameObject airEffectPrefab;
         public GameObject airWave;
         public LayerMask enemyLayer;
-        
+
+        private Manager.EffectManager em;
+
+        private void Start()
+        {
+            em = Manager.EffectManager.GetInstance();
+        }
+
         public void StartAirAttack(Collider enemy, AirParameters parameters, Weapon weapon, int repeats)
         {
             StartCoroutine(AirAttack(enemy, parameters, weapon, repeats));
@@ -20,7 +28,7 @@ namespace Player
             Vector3 startPosition = enemy.transform.position;
             startPosition.y += enemy.bounds.extents.y;
             
-            GameObject airWaveGO = Instantiate(airWave, startPosition, Quaternion.identity, enemy.gameObject.GetComponent<Resource.Health>().effectParent);
+            GameObject airWaveGO = Instantiate(airWave, startPosition, Quaternion.identity, em.transform);
             airWaveGO.transform.localScale = Vector3.one * parameters.range * 2;
             airWaveGO.GetComponent<ParticleSystem>().Play();
             Destroy(airWaveGO, 2f);
@@ -90,7 +98,7 @@ namespace Player
             {
                 if (target.gameObject != null)
                 {
-                    GameObject airEffectGameObject = Instantiate(airEffectPrefab, target.transform.position, Quaternion.identity, target.GetComponent<Resource.Health>().effectParent);
+                    GameObject airEffectGameObject = Instantiate(airEffectPrefab, target.transform.position, Quaternion.identity, em.transform);
                     airEffectGameObject.GetComponent<EffectAir>().StartAirAttack(target.GetComponent<Collider>(), parameters, weapon, repeats - 1);
                 }
             }

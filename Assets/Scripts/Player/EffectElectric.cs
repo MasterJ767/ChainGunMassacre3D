@@ -10,6 +10,13 @@ namespace Player
         public GameObject electricEffectPrefab;
         public GameObject electricLine;
         public LayerMask enemyLayer;
+
+        private Manager.EffectManager em;
+        
+        private void Start()
+        {
+            em = Manager.EffectManager.GetInstance();
+        }
         
         public void StartElectricAttack(Collider enemy, ElectricParameters parameters, Weapon weapon, int repeats)
         {
@@ -133,7 +140,7 @@ namespace Player
                 GameObject nextChain = validTargets[Random.Range(0, validTargets.Count)];
                 if (nextChain)
                 {
-                    GameObject electricEffectGameObject = Instantiate(electricEffectPrefab, nextChain.transform.position, Quaternion.identity, nextChain.GetComponent<Resource.Health>().effectParent);
+                    GameObject electricEffectGameObject = Instantiate(electricEffectPrefab, nextChain.transform.position, Quaternion.identity, em.transform);
                     electricEffectGameObject.GetComponent<EffectElectric>().StartElectricAttack(nextChain.GetComponent<Collider>(), parameters, weapon, repeats - 1);
                 }
             }

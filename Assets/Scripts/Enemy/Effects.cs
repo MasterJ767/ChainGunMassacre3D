@@ -25,7 +25,8 @@ namespace Enemy
         private Color tintColour;
         private bool fadeTint = false;
         private float tintFadeSpeed = 5f;
-        private Transform effectParent;
+        
+        private Manager.EffectManager em;
 
         private void Awake()
         {
@@ -35,8 +36,7 @@ namespace Enemy
             effectStatus.Add(ElementalEffect.POISON, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null,0));
             effectStatus.Add(ElementalEffect.EARTH, new EffectInformation(false, new NoneParameters(new Color(1, 1, 0, 0f)), null,0));
 
-            Resource.Health health = GetComponent<Resource.Health>();
-            effectParent = health.effectParent;
+            em = Manager.EffectManager.GetInstance();
             
             tintColour = new Color(baseColour.r, baseColour.g, baseColour.b, 0);
         }
@@ -336,7 +336,7 @@ namespace Enemy
                 float elevation = direction.magnitude * Mathf.Tan(80);
                 Vector3 apex = origin + direction + new Vector3(0, elevation, 0);
                 Vector3 trajectory = (apex - origin);
-                GameObject rockGO = Instantiate(rock, origin + new Vector3(0, 1f, 0), Quaternion.identity, effectParent);
+                GameObject rockGO = Instantiate(rock, origin + new Vector3(0, 1f, 0), Quaternion.identity, em.transform);
                 rockGO.GetComponent<EffectEarth>().Initialise(parameters, effectStatus[ElementalEffect.EARTH].weapon, effectStatus[ElementalEffect.EARTH].repeats, gameObject);
                 rockGO.GetComponent<Rigidbody>().velocity = trajectory;
                 

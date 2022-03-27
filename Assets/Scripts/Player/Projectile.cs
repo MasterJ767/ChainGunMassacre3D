@@ -22,9 +22,13 @@ namespace Player
         private Rigidbody rb;
         private List<GameObject> hitEnemies = new List<GameObject>();
 
+        private Manager.EffectManager em;
+
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
+
+            em = Manager.EffectManager.GetInstance();
         }
 
         public void Initialise(Weapon Weapon, ElementalParameters ElementalParameters, ElementalEffect ElementalEffect, float Damage, float Knockback, int PierceCount)
@@ -61,7 +65,7 @@ namespace Player
                         case ElementalEffect.NONE:
                             break;
                         case ElementalEffect.ELECTRIC:
-                            GameObject electricEffectGameObject = Instantiate(electricEffectPrefab,other.transform.position, Quaternion.identity, enemyHealth.effectParent);
+                            GameObject electricEffectGameObject = Instantiate(electricEffectPrefab,other.transform.position, Quaternion.identity, em.transform);
                             electricEffectGameObject.GetComponent<EffectElectric>().StartElectricAttack(other, (ElectricParameters)elementalParameters, weapon, ((ElectricParameters)elementalParameters).repeat);
                             break;
                         case ElementalEffect.FIRE:
@@ -77,7 +81,7 @@ namespace Player
                             enemyEffects.StartEarthAttack((EarthParameters)elementalParameters, weapon, ((EarthParameters)elementalParameters).repeat);
                             break;
                         case ElementalEffect.AIR:
-                            GameObject airEffectGameObject = Instantiate(airEffectPrefab, other.transform.position, Quaternion.identity, enemyHealth.effectParent);
+                            GameObject airEffectGameObject = Instantiate(airEffectPrefab, other.transform.position, Quaternion.identity, em.transform);
                             airEffectGameObject.GetComponent<EffectAir>().StartAirAttack(other, (AirParameters)elementalParameters, weapon, ((AirParameters)elementalParameters).repeat);
                             break;
                     }

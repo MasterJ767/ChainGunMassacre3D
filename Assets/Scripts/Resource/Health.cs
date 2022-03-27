@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
-using Player;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,9 +25,10 @@ namespace Resource
         public Gradient healthColour;
 
         public bool hasInstantiatedEffects;
-        public Transform effectParent;
         public GameObject damageIndicatorPrefab;
         public GameObject poisonCloud;
+
+        private Manager.EffectManager em;
 
         [NonSerialized]
         public bool isDead = false;
@@ -35,6 +36,8 @@ namespace Resource
         private void Start()
         {
             SetHealthMax();
+
+            em = Manager.EffectManager.GetInstance();
         }
 
         private void Update()
@@ -79,9 +82,12 @@ namespace Resource
         
         public void Damage(float value, Color colour, Player.DamageType damageType)
         {
-            if (hasInstantiatedEffects)
+            if (hasInstantiatedEffects && em.showDamageNumbers)
             {
-                IndicateDamage(value, colour, damageType);
+                if (em.showEffectDamageNumbers || damageType == Player.DamageType.WEAPON)
+                {
+                    IndicateDamage(value, colour, damageType);
+                }
             }
             Damage(value, damageType);
         }
@@ -122,7 +128,7 @@ namespace Resource
             {
                 Enemy.Effects effects = GetComponent<Enemy.Effects>();
                 Enemy.EffectInformation effectInformation = effects.GetEffectInformation(Player.ElementalEffect.POISON);
-                GameObject poisonCloudGO = Instantiate(poisonCloud, transform.position, Quaternion.identity, effectParent);
+                GameObject poisonCloudGO = Instantiate(poisonCloud, transform.position, Quaternion.identity, em.transform);
                 poisonCloudGO.GetComponent<Player.EffectPoison>().Initialise((Player.PoisonParameters)effectInformation.parameters, effectInformation.weapon);
                 Destroy(poisonCloudGO, ((Player.PoisonParameters)effectInformation.parameters).cloudDuration);
             }
@@ -137,14 +143,14 @@ namespace Resource
             Debug.Log("YOU DIED!");
         }
 
-        private void IndicateDamage(float damage, Color colour, DamageType damageType)
+        private void IndicateDamage(float damage, Color colour, Player.DamageType damageType)
         {
             Collider colldier = gameObject.GetComponent<Collider>();
-            GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2 * colldier.bounds.size.y, 0), transform.rotation, effectParent);
+            GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2 * colldier.bounds.size.y, 0), transform.rotation, em.transform);
             TextMeshProUGUI damageIndicatorText = damageIndicator.GetComponentInChildren<TextMeshProUGUI>();
             damageIndicatorText.text = damage.ToString("0.0");
             damageIndicatorText.color = new Color(colour.r, colour.g, colour.b, 0.5f);
-            if (damageType == DamageType.WEAPON)
+            if (damageType == Player.DamageType.WEAPON)
             {
                 damageIndicatorText.fontSize = 1;
             }
