@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -80,7 +81,7 @@ namespace Resource
         {
             if (hasInstantiatedEffects)
             {
-                IndicateDamage(value, colour);
+                IndicateDamage(value, colour, damageType);
             }
             Damage(value, damageType);
         }
@@ -136,13 +137,21 @@ namespace Resource
             Debug.Log("YOU DIED!");
         }
 
-        private void IndicateDamage(float damage, Color colour)
+        private void IndicateDamage(float damage, Color colour, DamageType damageType)
         {
             Collider colldier = gameObject.GetComponent<Collider>();
             GameObject damageIndicator = Instantiate(damageIndicatorPrefab, transform.position + new Vector3(0, 2 * colldier.bounds.size.y, 0), transform.rotation, effectParent);
             TextMeshProUGUI damageIndicatorText = damageIndicator.GetComponentInChildren<TextMeshProUGUI>();
             damageIndicatorText.text = damage.ToString("0.0");
             damageIndicatorText.color = new Color(colour.r, colour.g, colour.b, 0.5f);
+            if (damageType == DamageType.WEAPON)
+            {
+                damageIndicatorText.fontSize = 1;
+            }
+            else
+            {
+                damageIndicatorText.fontSize = 0.375f;
+            }
             Destroy(damageIndicator, 1f);
         }
     }
