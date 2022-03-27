@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Packages.Rider.Editor.UnitTesting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -29,7 +30,7 @@ namespace World
             DeterminePlayer();
             DeactivateChunks();
         }
-
+        
         private void Initialise()
         {
             for (int x = -Config.GenerationDistance; x < Config.GenerationDistance; x++)
@@ -198,6 +199,7 @@ namespace World
     public struct WeightedSpawn
     {
         public GameObject prefab;
+        public Vector3 offset;
         public float weight;
     }
 

@@ -85,7 +85,7 @@ MonoBehaviour:
   multiplier: 1.05
   speedLevel: 0
   rb: {fileID: 5736259186384463995}
-  viewDistance: 20
+  viewDistance: 35
   target: {fileID: 0}
   distanceToTarget: 0
 --- !u!114 &5736259186384463992
@@ -137,8 +137,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
+  isBoss: 0
   hasInstantiatedEffects: 1
-  effectParent: {fileID: 0}
   damageIndicatorPrefab: {fileID: 7244333026258086889, guid: 619fe34693d1b4c429faf9928c392fa1, type: 3}
   poisonCloud: {fileID: 7267367216162374524, guid: 9f088f846216071488011550d427fa57, type: 3}
 --- !u!114 &4840307015814005528

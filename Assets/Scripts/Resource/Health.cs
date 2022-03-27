@@ -24,11 +24,13 @@ namespace Resource
         public TextMeshProUGUI healthText;
         public Gradient healthColour;
 
+        public bool isBoss;
         public bool hasInstantiatedEffects;
         public GameObject damageIndicatorPrefab;
         public GameObject poisonCloud;
 
         private Manager.EffectManager em;
+        private Manager.SpawnManager sm;
 
         [NonSerialized]
         public bool isDead = false;
@@ -38,6 +40,7 @@ namespace Resource
             SetHealthMax();
 
             em = Manager.EffectManager.GetInstance();
+            sm = Manager.SpawnManager.GetInstance();
         }
 
         private void Update()
@@ -134,6 +137,16 @@ namespace Resource
             }
             gameObject.GetComponent<Enemy.Reward>().DropItem();
             gameObject.SetActive(false);
+
+            if (isBoss)
+            {
+                sm.RemoveBossEnemy(gameObject);
+            }
+            else
+            {
+                sm.RemoveEnemy(gameObject);
+            }
+            
             Destroy(gameObject, 2f);
         }
 

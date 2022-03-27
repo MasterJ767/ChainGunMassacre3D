@@ -38,6 +38,7 @@ namespace Enemy
 
             em = Manager.EffectManager.GetInstance();
             
+            SetColour(baseColour);
             tintColour = new Color(baseColour.r, baseColour.g, baseColour.b, 0);
         }
 

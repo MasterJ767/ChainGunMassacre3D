@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3860e4bd508aa384f8fc29edddcff64f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 120
+  maxHealth: 2400
   currentHealth: 0
   regenPerSecond: 1
   regenDelay: 5
@@ -143,9 +143,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  hasDamageIndicator: 0
-  damageIndicator: {fileID: 0}
-  damageIndicatorText: {fileID: 0}
+  isBoss: 0
+  hasInstantiatedEffects: 0
+  damageIndicatorPrefab: {fileID: 0}
+  poisonCloud: {fileID: 0}
 --- !u!114 &3241344754962851852
 MonoBehaviour:
   m_ObjectHideFlags: 0

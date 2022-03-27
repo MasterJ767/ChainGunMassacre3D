@@ -14,7 +14,7 @@ namespace Enemy
         
         public Rigidbody rb;
 
-        public float viewDistance = 20f;
+        public float viewDistance = 25f;
         public Transform target;
         [HideInInspector] 
         public float distanceToTarget;
