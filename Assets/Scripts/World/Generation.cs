@@ -94,6 +94,7 @@ namespace World
                     if (!chunks.ContainsKey(new Vector2Int(scaledX, scaledZ)))
                     {
                         GameObject chunkObject = Instantiate(chunkPrefab, new Vector3(scaledX, 0, scaledZ), Quaternion.identity, transform);
+                        chunkObject.name = "Chunk: (" + scaledX + ", " + scaledZ + ")";
                         Chunk chunk = chunkObject.GetComponent<Chunk>();
                         chunk.Initialise(this, scaledX, scaledZ, material);
                         ChunkData chunkData = new ChunkData()
@@ -161,6 +162,11 @@ namespace World
 
         public int GetFeature(int x, int z, int biomeId)
         {
+            if (biomeId < 0)
+            {
+                return -1;
+            }
+            
             float weightSum = biomes[biomeId].blankFeatureWeight;
             for (int i = 0; i < biomes[biomeId].features.Length; i++)
             {

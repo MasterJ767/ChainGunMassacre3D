@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace World
 {
@@ -102,7 +103,32 @@ namespace World
 
             meshFilter.sharedMesh = mesh;
 
+            Decorate();
+
             isRendered = true;
+        }
+
+        private void Decorate()
+        {
+            for (int x = 0; x < Config.ChunkWidth; x++)
+            {
+                for (int z = 0; z < Config.ChunkWidth; z++)
+                {
+                    Vector3Int globalPosition = new Vector3Int(x + position.x, 0, z + position.y);
+                    if (globalPosition.magnitude >= 20)
+                    {
+                        int biomeId = biomeMap[x, z];
+                        int featureId = world.GetFeature(globalPosition.x, globalPosition.z, biomeId);
+                        if (featureId >= 0)
+                        {
+                            Quaternion featureRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+                            Vector3 featurePosition = globalPosition + world.biomes[biomeId].features[featureId].offset;
+                            GameObject featureGO = Instantiate(world.biomes[biomeId].features[featureId].prefab, featurePosition, featureRotation, transform);
+                            featureGO.transform.localScale = Vector3.one * Random.Range(0.75f, 1.5f);
+                        }
+                    }
+                }
+            }
         }
     }
 }

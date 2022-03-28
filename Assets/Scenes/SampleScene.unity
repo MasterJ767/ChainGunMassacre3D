@@ -1358,8 +1358,14 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 2e2df735ee55d0940a0b349a52ffc9b0, type: 2}
   biomes:
   - biomeName: Lower Grassland
-    blankFeatureWeight: 0
-    features: []
+    blankFeatureWeight: 5
+    features:
+    - prefab: {fileID: 151792, guid: 1e4e7284c1efd5f4eb702c799353072c, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.006
+    - prefab: {fileID: 188992, guid: 11d469914a0208343b39f04223416f9c, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.004
     enemies:
     - prefab: {fileID: 5736259186384463991, guid: 84ce3a1bff4277a48af583e3f5efd12c, type: 3}
       offset: {x: 0, y: 0, z: 0}
@@ -1373,8 +1379,14 @@ MonoBehaviour:
       weight: 1
     maxExtent: 80
   - biomeName: Upper Grassland
-    blankFeatureWeight: 0
-    features: []
+    blankFeatureWeight: 5
+    features:
+    - prefab: {fileID: 151190, guid: a9cc5585b9634a9449920c03ec6bc243, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.006
+    - prefab: {fileID: 117604, guid: 9469bb1d3aa88ca40aa4079e96a27f8e, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.004
     enemies:
     - prefab: {fileID: 5736259186384463991, guid: 84ce3a1bff4277a48af583e3f5efd12c, type: 3}
       offset: {x: 0, y: 0, z: 0}
@@ -1388,8 +1400,14 @@ MonoBehaviour:
       weight: 1
     maxExtent: 160
   - biomeName: Lower Roughland
-    blankFeatureWeight: 0
-    features: []
+    blankFeatureWeight: 5
+    features:
+    - prefab: {fileID: 111430, guid: dc8f0d303746c2a4b89ee60884906304, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.006
+    - prefab: {fileID: 181472, guid: e9661e4c2bfea8344a07064944abe034, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.004
     enemies:
     - prefab: {fileID: 5736259186384463991, guid: 84ce3a1bff4277a48af583e3f5efd12c, type: 3}
       offset: {x: 0, y: 0, z: 0}
@@ -1403,8 +1421,14 @@ MonoBehaviour:
       weight: 1
     maxExtent: 240
   - biomeName: Upper Roughland
-    blankFeatureWeight: 0
-    features: []
+    blankFeatureWeight: 5
+    features:
+    - prefab: {fileID: 166244, guid: 78a4b58c8edc1884e932497bbb0da899, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.006
+    - prefab: {fileID: 188592, guid: bcd44f8d0f766b340b72d555a8df8a72, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.004
     enemies:
     - prefab: {fileID: 5736259186384463991, guid: 84ce3a1bff4277a48af583e3f5efd12c, type: 3}
       offset: {x: 0, y: 0, z: 0}
@@ -1418,8 +1442,14 @@ MonoBehaviour:
       weight: 1
     maxExtent: 320
   - biomeName: Tundra
-    blankFeatureWeight: 0
-    features: []
+    blankFeatureWeight: 5
+    features:
+    - prefab: {fileID: 121128, guid: b73c6c1069411b947aaaa9d12c37c652, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.006
+    - prefab: {fileID: 121128, guid: b73c6c1069411b947aaaa9d12c37c652, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.004
     enemies:
     - prefab: {fileID: 5736259186384463991, guid: 84ce3a1bff4277a48af583e3f5efd12c, type: 3}
       offset: {x: 0, y: 0, z: 0}
@@ -1433,8 +1463,14 @@ MonoBehaviour:
       weight: 1
     maxExtent: 400
   - biomeName: Voidland
-    blankFeatureWeight: 0
-    features: []
+    blankFeatureWeight: 5
+    features:
+    - prefab: {fileID: 147072, guid: 48333a5aa700be24c963813c82ef05d9, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.006
+    - prefab: {fileID: 148516, guid: 7710ce4a7ee932b4a86742119e3babae, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.004
     enemies:
     - prefab: {fileID: 5736259186384463991, guid: 84ce3a1bff4277a48af583e3f5efd12c, type: 3}
       offset: {x: 0, y: 0, z: 0}
@@ -1448,8 +1484,14 @@ MonoBehaviour:
       weight: 1
     maxExtent: 480
   - biomeName: Lavaland
-    blankFeatureWeight: 0
-    features: []
+    blankFeatureWeight: 5
+    features:
+    - prefab: {fileID: 174596, guid: 41dcf1459594f434a8a9bae6ae03eab0, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.006
+    - prefab: {fileID: 108756, guid: 2d521608fcf07c346b5e2ed4049aa717, type: 3}
+      offset: {x: 0, y: 0, z: 0}
+      weight: 0.004
     enemies:
     - prefab: {fileID: 5736259186384463991, guid: 84ce3a1bff4277a48af583e3f5efd12c, type: 3}
       offset: {x: 0, y: 0, z: 0}

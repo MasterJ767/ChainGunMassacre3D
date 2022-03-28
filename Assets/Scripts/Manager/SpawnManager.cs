@@ -58,7 +58,14 @@ namespace Manager
 
         private int GetBiomeId(Vector3 position)
         {
-            return world.GetBiomeId(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.z));
+            int biomeId = world.GetBiomeId(Mathf.FloorToInt(position.x), Mathf.FloorToInt(position.z));
+
+            if (biomeId == -1)
+            {
+                return world.biomes.Length - 1;
+            }
+
+            return biomeId;
         }
 
         private IEnumerator Increment()
@@ -120,7 +127,7 @@ namespace Manager
             float angle = ((Mathf.PI / 2) / enemyCount) + (Random.Range(-1, 1) * (Mathf.PI / 2) * Random.value);
             float offset = (Mathf.PI / 2) * Random.value;
 
-            int biomeId = world.GetBiomeId(Mathf.FloorToInt(centre.x), Mathf.FloorToInt(centre.z));
+            int biomeId = GetBiomeId(centre);
             
             for (int i = (spawnedBossEnemies.Count - 1); i < enemyBossCount; i++)
             {

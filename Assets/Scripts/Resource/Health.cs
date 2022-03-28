@@ -129,9 +129,11 @@ namespace Resource
         {
             if (damageType == Player.DamageType.POISON && hasInstantiatedEffects)
             {
+                Vector3 spawnPoint = transform.position;
+                spawnPoint.y += GetComponent<Collider>().bounds.extents.y;
                 Enemy.Effects effects = GetComponent<Enemy.Effects>();
                 Enemy.EffectInformation effectInformation = effects.GetEffectInformation(Player.ElementalEffect.POISON);
-                GameObject poisonCloudGO = Instantiate(poisonCloud, transform.position, Quaternion.identity, em.transform);
+                GameObject poisonCloudGO = Instantiate(poisonCloud, spawnPoint, Quaternion.identity, em.transform);
                 poisonCloudGO.GetComponent<Player.EffectPoison>().Initialise((Player.PoisonParameters)effectInformation.parameters, effectInformation.weapon);
                 Destroy(poisonCloudGO, ((Player.PoisonParameters)effectInformation.parameters).cloudDuration);
             }
