@@ -10,12 +10,17 @@ namespace Enemy
     public class Effects : MonoBehaviour
     {
         public Color baseColour;
+        public Gradient baseGradient;
+        public Material baseMaterial;
         public Color fireTint;
         public Gradient fireTrailGradient;
+        public Material fireMaterial;
         public Color iceTint;
         public Gradient iceTrailGradient;
+        public Material iceMaterial;
         public Color poisonTint;
         public Gradient poisonTrailGradient;
+        public Material poisonMaterial;
         public Color earthTint;
         public GameObject rock;
         public SkinnedMeshRenderer mesh;
@@ -80,8 +85,10 @@ namespace Enemy
             mesh.material.SetColor(Shader.PropertyToID("_Tint"), tintColour);
         }
 
-        private void SetTrail(Gradient gradient)
+        private void SetTrail(Gradient gradient, Material material)
         {
+            Renderer trailRenderer = trail.GetComponent<Renderer>();
+            trailRenderer.material = material;
             ParticleSystem.ColorOverLifetimeModule trailColour = trail.colorOverLifetime;
             trailColour.color = gradient;
         }
@@ -95,6 +102,7 @@ namespace Enemy
             else
             {
                 trail.Stop();
+                SetTrail(baseGradient, baseMaterial);
             }
         }
 
@@ -118,7 +126,7 @@ namespace Enemy
             }
             
             SetTint(fireTint);
-            SetTrail(fireTrailGradient);
+            SetTrail(fireTrailGradient, fireMaterial);
             ToggleTrail(true);
 
             effectStatus[ElementalEffect.FIRE].active = true;
@@ -181,7 +189,7 @@ namespace Enemy
             }
 
             SetTint(iceTint);
-            SetTrail(iceTrailGradient);
+            SetTrail(iceTrailGradient, iceMaterial);
             ToggleTrail(true);
             
             effectStatus[ElementalEffect.ICE].active = true;
@@ -235,7 +243,7 @@ namespace Enemy
             }
 
             SetTint(poisonTint);
-            SetTrail(poisonTrailGradient);
+            SetTrail(poisonTrailGradient, poisonMaterial);
             ToggleTrail(true);
             
             effectStatus[ElementalEffect.POISON].active = true;
